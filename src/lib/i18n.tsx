@@ -10,6 +10,10 @@ export interface TranslationDictionary {
     workflow: string;
     available: string;
     availableMobile: string;
+    ariaAbout: string;
+    ariaSkills: string;
+    ariaProjects: string;
+    ariaWorkflow: string;
   };
   header: {
     navAbout: string;
@@ -156,6 +160,10 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       workflow: "Процесс",
       available: "Доступен →",
       availableMobile: "Доступен к предложениям →",
+      ariaAbout: "Перейти к секции Обо мне",
+      ariaSkills: "Перейти к секции Навыки",
+      ariaProjects: "Перейти к секции Проекты",
+      ariaWorkflow: "Перейти к секции Процесс",
     },
     header: {
       navAbout: "Обо мне",
@@ -325,6 +333,10 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       workflow: "Workflow",
       available: "Available →",
       availableMobile: "Available for opportunities →",
+      ariaAbout: "Go to About section",
+      ariaSkills: "Go to Skills section",
+      ariaProjects: "Go to Projects section",
+      ariaWorkflow: "Go to Workflow section",
     },
     header: {
       navAbout: "About",

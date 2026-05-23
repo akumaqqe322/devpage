@@ -1,12 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { Menu, X, Terminal, ArrowUpRight } from "lucide-react";
+import { Menu, X, Terminal } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { NAV_ITEMS } from "../lib/site-data";
 import { useLocale } from "../lib/i18n";
+
+const TAB_FILES = [
+  { 
+    id: "about", 
+    href: "#about", 
+    file: "about.tsx", 
+    dotColor: "bg-cyan-500", 
+    borderColor: "bg-cyan-500/80",
+    ariaLabel: "Go to About section",
+    ariaLabelRu: "Перейти к секции Обо мне"
+  },
+  { 
+    id: "skills", 
+    href: "#skills", 
+    file: "skills.json", 
+    dotColor: "bg-amber-500", 
+    borderColor: "bg-amber-500/80",
+    ariaLabel: "Go to Skills section",
+    ariaLabelRu: "Перейти к секции Навыки"
+  },
+  { 
+    id: "projects", 
+    href: "#projects", 
+    file: "projects.md", 
+    dotColor: "bg-violet-500", 
+    borderColor: "bg-violet-500/80",
+    ariaLabel: "Go to Projects section",
+    ariaLabelRu: "Перейти к секции Проекты"
+  },
+  { 
+    id: "workflow", 
+    href: "#workflow", 
+    file: "workflow.yaml", 
+    dotColor: "bg-emerald-500", 
+    borderColor: "bg-emerald-500/80",
+    ariaLabel: "Go to Workflow section",
+    ariaLabelRu: "Перейти к секции Процесс"
+  }
+];
 
 export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("about");
   const { locale, setLocale, t } = useLocale();
 
   // Track scrolling to apply dynamic borders and background opacity
@@ -20,6 +59,43 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // IntersectionObserver to sync active tab with currently scrolled section
+  useEffect(() => {
+    const sections = ["hero", "about", "skills", "projects", "workflow"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -55% 0px",
+      threshold: 0.05,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          if (id === "hero") {
+            setActiveSection("");
+          } else {
+            setActiveSection(id);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
   }, []);
 
   const handleScrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -36,16 +112,6 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
         top: offsetPosition,
         behavior: "smooth"
       });
-    }
-  };
-
-  const getTranslatedLabel = (label: string) => {
-    switch (label.toLowerCase()) {
-      case "about": return t.nav.about;
-      case "skills": return t.nav.skills;
-      case "projects": return t.nav.projects;
-      case "workflow": return t.nav.workflow;
-      default: return label;
     }
   };
 
@@ -77,23 +143,37 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 bg-zinc-950/50 backdrop-blur-md border border-white/[0.05] p-1 rounded-full" id="desktop-nav">
-            {NAV_ITEMS.map((item, index) => {
-              const num = `0${index + 1}`;
+          {/* Desktop Navigation - IDE Style file tabs strip */}
+          <nav className="hidden md:flex items-center bg-[#070709]/80 backdrop-blur-md border border-white/[0.04] rounded-xl overflow-hidden font-mono text-xs shadow-md p-px" id="desktop-nav">
+            {TAB_FILES.map((tab) => {
+              const isActive = activeSection === tab.id;
               return (
                 <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleScrollToSection(e, item.href)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/[0.04] focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40 transition-all duration-200 cursor-pointer group"
+                  key={tab.id}
+                  href={tab.href}
+                  onClick={(e) => handleScrollToSection(e, tab.href)}
+                  aria-current={isActive ? "true" : undefined}
+                  aria-label={locale === "ru" ? tab.ariaLabelRu : tab.ariaLabel}
+                  title={locale === "ru" ? tab.ariaLabelRu : tab.ariaLabel}
+                  className={`relative inline-flex items-center gap-2 px-3.5 py-2.5 transition-all select-none cursor-pointer group focus:outline-none focus-visible:bg-white/[0.05] border-r border-white/[0.03] last:border-r-0 ${
+                    isActive 
+                      ? "bg-zinc-900/40 text-white font-medium shadow-inner" 
+                      : "text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.02]"
+                  }`}
                 >
-                  <span className="font-mono text-[10px] text-zinc-500 group-hover:text-blue-400 transition-colors">
-                    {num}
-                  </span>
-                  <span className="font-sans">
-                    {getTranslatedLabel(item.label)}
-                  </span>
+                  {/* Subtle active state indicators */}
+                  {isActive && (
+                    <motion.div 
+                      layoutId="activeTabAccentMarker"
+                      className={`absolute top-0 left-0 right-0 h-[1.5px] ${tab.borderColor}`}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                  
+                  {/* Miniature colored indicator dot representing the file type */}
+                  <span className={`w-1.5 h-1.5 rounded-full ${tab.dotColor} shrink-0 opacity-75 group-hover:scale-110 group-hover:opacity-100 transition-all`} />
+                  
+                  <span className="text-[11.5px] tracking-wide">{tab.file}</span>
                 </a>
               );
             })}
@@ -184,22 +264,24 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             className="md:hidden border-b border-zinc-800/80 bg-[#030303]/95 backdrop-blur-xl overflow-hidden"
             id="mobile-menu"
           >
-            <div className="px-4 pt-3 pb-6 space-y-1.5 sm:px-6">
-              {NAV_ITEMS.map((item, index) => {
-                const num = `0${index + 1}`;
+            <div className="px-4 pt-4 pb-6 space-y-2 sm:px-6">
+              {TAB_FILES.map((tab) => {
+                const isActive = activeSection === tab.id;
                 return (
                   <a
-                    key={item.label}
-                    href={item.href}
-                    onClick={(e) => handleScrollToSection(e, item.href)}
-                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 border-l border-transparent hover:border-blue-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/45 transition-all duration-200 cursor-pointer"
+                    key={tab.id}
+                    href={tab.href}
+                    onClick={(e) => handleScrollToSection(e, tab.href)}
+                    aria-label={locale === "ru" ? tab.ariaLabelRu : tab.ariaLabel}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-mono transition-all duration-200 cursor-pointer border-l-2 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40 ${
+                      isActive
+                        ? "text-white bg-zinc-900/60 border-cyan-500/60 font-semibold"
+                        : "text-zinc-400 border-transparent hover:text-white hover:bg-zinc-900"
+                    }`}
                   >
-                    <span className="font-mono text-xs text-zinc-650">
-                      {num}
-                    </span>
-                    <span>
-                      {getTranslatedLabel(item.label)}
-                    </span>
+                    {/* Visual file dot maker */}
+                    <span className={`w-1.5 h-1.5 rounded-full ${tab.dotColor} shrink-0`} />
+                    <span className="text-xs">{tab.file}</span>
                   </a>
                 );
               })}
