@@ -3,7 +3,7 @@ import { Menu, X, Terminal, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { NAV_ITEMS } from "../lib/site-data";
 
-export function SiteHeader() {
+export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -80,7 +80,20 @@ export function SiteHeader() {
           </nav>
 
           {/* CTA Header Actions */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={onOpenPalette}
+              type="button"
+              className="inline-flex items-center justify-center gap-2 px-3.5 py-2 text-xs font-mono font-medium text-zinc-400 hover:text-white bg-zinc-950 border border-zinc-900 hover:border-zinc-800 rounded-lg hover:bg-zinc-900 transition-all duration-200 select-none cursor-pointer group"
+              id="header-dev-palette-btn"
+            >
+              <Terminal className="w-3.5 h-3.5 text-blue-400 group-hover:text-cyan-400 transition-colors" />
+              <span>Dev Console</span>
+              <kbd className="inline-flex text-[9px] px-1 py-0.5 bg-zinc-900 border border-zinc-850 rounded font-mono text-zinc-550 leading-none">
+                ⌘K
+              </kbd>
+            </button>
+
             <a
               href="#contact"
               onClick={(e) => handleScrollToSection(e, "#contact")}
@@ -131,7 +144,19 @@ export function SiteHeader() {
                   {item.label}
                 </a>
               ))}
-              <div className="pt-4 px-3">
+              <div className="pt-4 px-3 flex flex-col gap-2">
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    onOpenPalette();
+                  }}
+                  type="button"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 text-xs font-mono text-center font-medium text-zinc-300 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-lg transition-all cursor-pointer"
+                >
+                  <Terminal className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Dev Console</span>
+                </button>
+
                 <a
                   href="#contact"
                   onClick={(e) => handleScrollToSection(e, "#contact")}
