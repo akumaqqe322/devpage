@@ -84,12 +84,12 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             <button
               onClick={onOpenPalette}
               type="button"
-              className="inline-flex items-center justify-center gap-2 px-3.5 py-2 text-xs font-mono font-medium text-zinc-400 hover:text-white bg-zinc-950 border border-zinc-900 hover:border-zinc-800 rounded-lg hover:bg-zinc-900 transition-all duration-200 select-none cursor-pointer group"
+              className="inline-flex items-center justify-center gap-2 px-3.5 py-2 text-xs font-mono font-medium text-zinc-400 hover:text-white bg-zinc-950/40 border border-white/[0.06] hover:border-white/[0.12] rounded-lg hover:bg-white/[0.04] transition-all duration-200 select-none cursor-pointer group"
               id="header-dev-palette-btn"
             >
               <Terminal className="w-3.5 h-3.5 text-blue-400 group-hover:text-cyan-400 transition-colors" />
               <span>Dev Console</span>
-              <kbd className="inline-flex text-[9px] px-1 py-0.5 bg-zinc-900 border border-zinc-850 rounded font-mono text-zinc-550 leading-none">
+              <kbd className="inline-flex text-[9px] px-1.5 py-0.5 bg-white/[0.03] border border-white/[0.05] rounded font-mono text-zinc-500 leading-none">
                 ⌘K
               </kbd>
             </button>

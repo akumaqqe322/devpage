@@ -142,11 +142,11 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Developer command palette"
-            className="w-full max-w-2xl bg-zinc-950 border border-zinc-850 rounded-2xl shadow-2xl relative z-10 overflow-hidden flex flex-col max-h-[80vh] text-zinc-100"
+            className="w-full max-w-2xl bg-[#08080a]/90 backdrop-blur-xl border border-white/[0.08] rounded-3xl shadow-2xl shadow-black/60 relative z-10 overflow-hidden flex flex-col max-h-[80vh] text-zinc-100"
             id="cmd-dialog-frame"
           >
             {/* Header / Input controls */}
-            <div className="p-4 border-b border-zinc-900/60 flex items-center gap-3 bg-zinc-950/40 relative">
+            <div className="p-4 border-b border-white/[0.06] flex items-center gap-3 bg-black/20 relative">
               <Search className="w-5 h-5 text-zinc-500 shrink-0" />
               <input 
                 ref={inputRef}
@@ -154,12 +154,12 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Фильтровать действия, проекты, контакты..."
-                className="w-full bg-transparent border-none text-zinc-100 placeholder-zinc-550 text-sm focus:outline-none selection:bg-blue-550/20"
+                className="w-full bg-transparent border-none text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none selection:bg-cyan-550/20"
                 id="cmd-input-field"
               />
               <button 
                 onClick={onClose}
-                className="p-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors"
+                className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-zinc-400 hover:text-white transition-all cursor-pointer"
                 aria-label="Закрыть консоль"
               >
                 <X className="w-4 h-4" />
@@ -172,27 +172,27 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {/* Navigate Section */}
               {filteredNavItems.length > 0 && (
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-550 uppercase block px-2">
+                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
                     Навигация по сайту
                   </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                     {filteredNavItems.map((item) => (
                       <button
                         key={item.label}
                         onClick={() => handleScrollTo(item.href.replace("#", ""))}
-                        className="flex items-center justify-between p-2.5 rounded-lg border border-transparent hover:border-zinc-900 bg-zinc-950 hover:bg-zinc-900/60 text-left transition-all duration-250 cursor-pointer focus:border-blue-500/50 group"
+                        className="flex items-center justify-between p-2.5 rounded-2xl border border-transparent hover:border-white/[0.06] bg-transparent hover:bg-white/[0.04] text-left transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 group"
                       >
                         <div className="flex items-center gap-2.5">
-                          <div className="p-1.5 rounded bg-zinc-900 group-hover:bg-zinc-850 border border-zinc-850">
+                          <div className="p-1.5 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.08] group-hover:border-white/[0.1] transition-all">
                             {getNavIcon(item.label)}
                           </div>
                           <div>
-                            <span className="text-xs font-semibold text-zinc-200 group-hover:text-white">
+                            <span className="text-xs font-semibold text-zinc-205 group-hover:text-white">
                               {item.label}
                             </span>
                           </div>
                         </div>
-                        <span className="text-[10px] font-mono text-zinc-600 group-hover:text-zinc-400 transition-colors">
+                        <span className="text-[10px] font-mono text-zinc-500 bg-white/[0.03] px-1.5 py-0.5 rounded-md border border-white/[0.06] group-hover:text-zinc-300 transition-colors">
                           Скролл
                         </span>
                       </button>
@@ -204,20 +204,20 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {/* Profiles Open Section */}
               {filteredLinks.length > 0 && (
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-550 uppercase block px-2">
+                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
                     Внешние профили и контакты
                   </span>
-                  <div className="space-y-1.5">
+                  <div className="space-y-1">
                     {filteredLinks.map((link) => (
                       <a
                         key={link.label}
                         href={link.href}
                         target="_blank"
                         rel="noreferrer noopener"
-                        className="flex items-center justify-between p-2.5 rounded-lg border border-transparent hover:border-zinc-900 bg-zinc-950 hover:bg-zinc-900/40 transition-all duration-250 cursor-pointer focus:border-blue-500/50 group"
+                        className="flex items-center justify-between p-2.5 rounded-2xl border border-transparent hover:border-white/[0.06] bg-transparent hover:bg-white/[0.04] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 group"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="p-2 ml-1 rounded bg-zinc-900 border border-zinc-850">
+                          <div className="p-2 ml-1 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.08] group-hover:border-white/[0.1] transition-all">
                             {getProfileIcon(link.label)}
                           </div>
                           <div className="space-y-0.5">
@@ -229,12 +229,12 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                                 </span>
                               )}
                             </span>
-                            <span className="text-[11px] text-zinc-450 leading-none">
+                            <span className="text-[11px] text-zinc-500 leading-none">
                               {link.description}
                             </span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1 text-zinc-600 group-hover:text-zinc-400 font-mono text-[9px] mr-2">
+                        <div className="flex items-center gap-1 text-zinc-500 group-hover:text-cyan-400 font-mono text-[9px] mr-2 transition-colors">
                           <span>Открыть</span>
                           <ExternalLink className="w-3 h-3" />
                         </div>
@@ -247,23 +247,23 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {/* Product Build Log Section */}
               {searchQuery === "" && (
                 <div className="space-y-3">
-                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-550 uppercase block px-2">
+                  <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
                     История сборки лендинга (Build Logs)
                   </span>
-                  <div className="rounded-xl border border-zinc-900 bg-zinc-950/40 p-3.5 space-y-3">
-                    <div className="flex items-center gap-2 text-zinc-300">
-                      <Hammer className="w-4 h-4 text-purple-400" />
-                      <span className="text-xs font-bold font-mono">Build Workflow Terminal log:</span>
+                  <div className="rounded-2xl border border-white/[0.06] bg-black/25 p-4 space-y-3.5">
+                    <div className="flex items-center gap-2 text-zinc-400">
+                      <Hammer className="w-4 h-4 text-purple-400/80" />
+                      <span className="text-xs font-semibold font-mono">Build Workflow Terminal:</span>
                     </div>
                     <div className="space-y-2 font-mono text-[11px] text-zinc-400 leading-relaxed">
                       {BUILD_LOGS.map((log) => (
-                        <div key={log.stage} className="flex items-start justify-between gap-4 border-b border-zinc-900/30 pb-1.5 last:border-0 last:pb-0">
-                          <span className="text-zinc-500 shrink-0">{log.stage}</span>
+                        <div key={log.stage} className="flex items-start justify-between gap-4 border-b border-white/[0.04] pb-2 last:border-0 last:pb-0">
+                          <span className="text-zinc-550 shrink-0">{log.stage}</span>
                           <span className="text-left text-zinc-400 flex-1 truncate">{log.text}</span>
-                          <span className={`text-[10px] uppercase font-bold px-1 rounded ${
+                          <span className={`text-[9px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full ${
                             log.status === "Hot" 
-                              ? "bg-blue-500/10 text-blue-400 animate-pulse" 
-                              : "bg-zinc-900 text-zinc-550"
+                              ? "bg-blue-500/10 text-blue-400 font-bold animate-pulse" 
+                              : "bg-white/[0.03] text-zinc-500"
                           }`}>
                             {log.status}
                           </span>
@@ -277,12 +277,12 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
             </div>
 
             {/* Footer principle */}
-            <div className="p-4 border-t border-zinc-900 bg-zinc-950 flex items-center justify-between text-[11px] text-zinc-550 relative z-10 font-mono">
+            <div className="p-4 border-t border-white/[0.06] bg-[#0c0c0e]/80 flex items-center justify-between text-[11px] text-zinc-500 relative z-10 font-mono">
               <div className="flex items-center gap-2">
                 <Sparkle className="w-3.5 h-3.5 text-blue-400" />
                 <span>AI accelerates, engineering control keeps reliability.</span>
               </div>
-              <div className="hidden sm:flex items-center gap-1 text-[10px] text-zinc-600 bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-850">
+              <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-zinc-500 bg-white/[0.03] px-2 py-0.5 rounded-md border border-white/[0.06]">
                 <span>ESC to close</span>
               </div>
             </div>
