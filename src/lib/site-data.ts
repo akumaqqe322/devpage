@@ -23,6 +23,20 @@ export interface ProjectItem {
   metrics?: string[];
 }
 
+export interface AboutHighlight {
+  title: string;
+  description: string;
+  iconName: 'Layout' | 'Layers' | 'Cpu' | 'Sparkles';
+}
+
+export interface SkillGroup {
+  id: string;
+  title: string;
+  description: string;
+  skills: string[];
+  accentColor: string; // custom gradient/glow style classes
+}
+
 export const NAV_ITEMS: NavItem[] = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
@@ -35,6 +49,67 @@ export const STATUS_PILLS = [
   { text: 'Available for junior+/strong junior roles', type: 'role' },
   { text: 'AI-assisted workflow', type: 'tech' },
   { text: 'Product-focused demos', type: 'focus' }
+];
+
+export const ABOUT_HIGHLIGHTS: AboutHighlight[] = [
+  {
+    title: "Product interfaces",
+    description: "Разработка удобных и функциональных CRM, дашбордов, внутренних систем и интерактивных кастомных workspace-сценариев.",
+    iconName: "Layout"
+  },
+  {
+    title: "Fullstack MVP",
+    description: "Создание законченных кейсов: авторизация, API-методы, валидация полей через Zod, управление стейтом и надежный деплой.",
+    iconName: "Layers"
+  },
+  {
+    title: "AI-assisted workflow",
+    description: "Уверенная интеграция моделей в код и использование продвинутых промпт-инструментов, сохраняя полный контроль за качеством архитектуры.",
+    iconName: "Cpu"
+  },
+  {
+    title: "UX polish",
+    description: "Внимание к деталям: адаптивность экранов, проработка пустых или ошибочных состояний, плавная загрузка и микро-акценты.",
+    iconName: "Sparkles"
+  }
+];
+
+export const SKILL_GROUPS: SkillGroup[] = [
+  {
+    id: "frontend",
+    title: "Frontend Development",
+    description: "Акцент на высокую производительность, строгую типизацию и интерактивность UI.",
+    skills: ["TypeScript", "JavaScript", "React", "Next.js", "Vue 3", "Nuxt", "Tailwind CSS", "Framer Motion"],
+    accentColor: "from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30"
+  },
+  {
+    id: "backend",
+    title: "Backend & Data",
+    description: "Проектирование логики, систем авторизации и организация структур данных.",
+    skills: ["Node.js", "Express", "Supabase", "REST API", "JWT Auth", "Zod Validation"],
+    accentColor: "from-purple-500/20 to-indigo-500/20 text-purple-400 border-purple-500/30"
+  },
+  {
+    id: "mobile",
+    title: "Mobile Apps",
+    description: "Кроссплатформенная разработка быстрых мобильных клиентов.",
+    skills: ["Flutter", "React Native", "Expo CLI"],
+    accentColor: "from-pink-500/20 to-rose-500/20 text-pink-400 border-pink-500/30"
+  },
+  {
+    id: "ai",
+    title: "AI Integrations",
+    description: "Использование AI для повышения продуктивности и внедрение смарт-фичей.",
+    skills: ["ChatGPT", "Gemini", "Claude API", "AI Agents", "Prompt Engineering", "AI Code Review"],
+    accentColor: "from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30"
+  },
+  {
+    id: "tools",
+    title: "Deploy & Version Control",
+    description: "Современные платформы деплоя и инструменты контроля версий.",
+    skills: ["Vercel", "Railway", "Replit", "Git", "GitHub Actions"],
+    accentColor: "from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30"
+  }
 ];
 
 export const CORE_TECH_STACK: TechStackItem[] = [

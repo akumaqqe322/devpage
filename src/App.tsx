@@ -5,9 +5,9 @@
 
 import { SiteHeader } from "./components/site-header";
 import { HeroSection } from "./components/hero-section";
+import { AboutSection } from "./components/about-section";
+import { SkillsSection } from "./components/skills-section";
 import {
-  AboutPlaceholder,
-  SkillsPlaceholder,
   ProjectsPlaceholder,
   WorkflowPlaceholder,
   ContactPlaceholder,
@@ -24,9 +24,11 @@ export default function App() {
         {/* Step 1 Hero Section with interactive developer visual card */}
         <HeroSection />
 
+        {/* Real Content Sections (Stage 2) */}
+        <AboutSection />
+        <SkillsSection />
+
         {/* Anchor Layout Placeholder Sections for next stages */}
-        <AboutPlaceholder />
-        <SkillsPlaceholder />
         <ProjectsPlaceholder />
         <WorkflowPlaceholder />
         <ContactPlaceholder />
