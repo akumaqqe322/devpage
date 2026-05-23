@@ -10,7 +10,7 @@ interface ProjectCardProps {
 
 function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
   return (
-    <div className="h-full relative rounded-2xl border border-zinc-850 bg-zinc-950/40 backdrop-blur-xl transition-all duration-300 group-hover:border-zinc-700/80 group-hover:bg-zinc-950/70 overflow-hidden flex flex-col justify-between">
+    <div className="h-full relative rounded-2xl border border-zinc-800 bg-zinc-950/40 backdrop-blur-xl transition-all duration-300 group-hover:border-zinc-700/80 group-hover:bg-zinc-950/70 overflow-hidden flex flex-col justify-between">
       {/* Subtle Grid overlay background */}
       <div className="absolute inset-0 dot-grid opacity-5 pointer-events-none" />
 
@@ -76,7 +76,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 {project.techStack.map((tech) => (
                   <span
                     key={tech}
-                    className="inline-flex items-center px-2 py-0.5 rounded bg-zinc-900/40 border border-zinc-850 text-[10px] font-medium text-zinc-400"
+                    className="inline-flex items-center px-2 py-0.5 rounded bg-zinc-900/40 border border-zinc-800 text-[10px] font-medium text-zinc-400"
                   >
                     {tech}
                   </span>
@@ -108,7 +108,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 href={project.repoUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-blue-400" />
                 <span>AI Brief Builder Repo</span>
@@ -117,7 +117,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 href={project.repoUrlAdditional}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-cyan-400" />
                 <span>AI MVP Guide Repo</span>
@@ -128,14 +128,14 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
               href={project.repoUrl}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-350 hover:text-white transition-all duration-200"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-all duration-200"
             >
               <Github className="w-3.5 h-3.5 text-zinc-400" />
               <span>Открыть репозиторий</span>
             </a>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-650">
-              <Lock className="w-3 h-3 text-zinc-750" />
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-500">
+              <Lock className="w-3 h-3 text-zinc-600" />
               <span>Private Repository</span>
             </span>
           )}

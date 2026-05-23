@@ -48,7 +48,7 @@ export function ContactSection() {
         
         {/* Section Header */}
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-805 text-xs font-mono text-purple-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-purple-400">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
             <span>05 . Контакты</span>
           </div>
@@ -70,7 +70,7 @@ export function ContactSection() {
           
           {/* Left Block: Narrative CTA Card */}
           <div className="lg:col-span-5">
-            <div className="h-full relative rounded-2xl border border-zinc-850 bg-gradient-to-b from-zinc-950 to-zinc-900/30 p-8 flex flex-col justify-between overflow-hidden group shadow-xl">
+            <div className="h-full relative rounded-2xl border border-zinc-800 bg-gradient-to-b from-zinc-950 to-zinc-900/30 p-8 flex flex-col justify-between overflow-hidden group shadow-xl">
               <div className="absolute inset-0 dot-grid opacity-5 pointer-events-none" />
 
               <div className="space-y-6">
@@ -97,7 +97,7 @@ export function ContactSection() {
                 </div>
                 <div className="font-mono text-[10px] text-zinc-550 leading-relaxed">
                   Ориентировочное время ответа <br />
-                  <span className="text-zinc-350">в Telegram — в течение пары часов</span>
+                  <span className="text-zinc-400">в Telegram — в течение пары часов</span>
                 </div>
               </div>
             </div>
@@ -156,7 +156,7 @@ export function ContactSection() {
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-zinc-455 leading-relaxed font-sans">
+                        <p className="text-xs text-zinc-400 leading-relaxed font-sans">
                           {link.description}
                         </p>
                       </div>

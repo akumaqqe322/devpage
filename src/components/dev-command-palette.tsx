@@ -187,7 +187,7 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                             {getNavIcon(item.label)}
                           </div>
                           <div>
-                            <span className="text-xs font-semibold text-zinc-205 group-hover:text-white">
+                            <span className="text-xs font-semibold text-zinc-200 group-hover:text-white">
                               {item.label}
                             </span>
                           </div>
@@ -258,7 +258,7 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                     <div className="space-y-2 font-mono text-[11px] text-zinc-400 leading-relaxed">
                       {BUILD_LOGS.map((log) => (
                         <div key={log.stage} className="flex items-start justify-between gap-4 border-b border-white/[0.04] pb-2 last:border-0 last:pb-0">
-                          <span className="text-zinc-550 shrink-0">{log.stage}</span>
+                          <span className="text-zinc-500 shrink-0">{log.stage}</span>
                           <span className="text-left text-zinc-400 flex-1 truncate">{log.text}</span>
                           <span className={`text-[9px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded-full ${
                             log.status === "Hot" 

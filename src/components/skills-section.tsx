@@ -55,7 +55,7 @@ export function SkillsSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-805 text-xs font-mono text-purple-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-purple-400">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
             <span>02 . Навыки & Стек</span>
           </div>
@@ -86,7 +86,7 @@ export function SkillsSection() {
               key={group.id}
               variants={groupVariants}
               whileHover={{ y: -5, borderColor: "rgba(113, 113, 122, 0.4)" }}
-              className="relative rounded-2xl border border-zinc-850 bg-zinc-950/60 p-6 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group overflow-hidden"
+              className="relative rounded-2xl border border-zinc-800 bg-zinc-950/60 p-6 backdrop-blur-md transition-all duration-300 flex flex-col justify-between group overflow-hidden"
             >
               {/* Corner ambient blur flare depending on categories */}
               <div className={`absolute -top-12 -right-12 w-24 h-24 bg-gradient-to-br ${group.accentColor.split(' ')[0]} rounded-full blur-2xl opacity-20 pointer-events-none group-hover:opacity-40 transition-opacity duration-300`} />

@@ -49,7 +49,7 @@ export function WorkflowSection() {
       <div className="space-y-16 relative z-10">
         {/* Section Header */}
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-805 text-xs font-mono text-emerald-400">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-emerald-400">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>04 . Workflow</span>
           </div>
@@ -61,7 +61,7 @@ export function WorkflowSection() {
             </span>
           </h2>
 
-          <p className="text-sm sm:text-base text-zinc-450 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             Полноценное использование возможностей генеративного ИИ для ускорения рутинных операций, при этом вся ответственность за стандарты, безопасность и архитектуру лежит на человеке.
           </p>
         </div>
@@ -90,7 +90,7 @@ export function WorkflowSection() {
                   className="relative flex flex-col sm:flex-row gap-6 group"
                 >
                   {/* Pipeline Step Marker */}
-                  <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-900 group-hover:border-zinc-750 transition-colors duration-300 self-start shadow-xl">
+                  <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-900 group-hover:border-zinc-700 transition-colors duration-300 self-start shadow-xl">
                     <span className="absolute -inset-1.5 bg-zinc-900/35 rounded-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     {getStepIcon(step.number)}
                   </div>
@@ -104,7 +104,7 @@ export function WorkflowSection() {
                     <div className="space-y-4">
                       {/* Step Header info */}
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-zinc-650 font-bold">
+                        <span className="font-mono text-xs text-zinc-500 font-bold">
                           STAGE {step.number}
                         </span>
                         <span className={`inline-flex px-2 py-0.5 rounded text-[9px] font-mono border ${step.accent.split(' ').slice(1).join(' ')} bg-zinc-900/20`}>
@@ -127,7 +127,7 @@ export function WorkflowSection() {
                         {step.details.map((detail) => (
                           <span
                             key={detail}
-                            className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-900/50 border border-zinc-925 text-[10px] font-mono text-zinc-500 hover:text-zinc-300 transition-colors cursor-default"
+                            className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-900/50 border border-zinc-900 text-[10px] font-mono text-zinc-500 hover:text-zinc-300 transition-colors cursor-default"
                           >
                             {detail}
                           </span>
@@ -147,7 +147,7 @@ export function WorkflowSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative p-8 rounded-2xl border border-zinc-850 bg-gradient-to-b from-zinc-950 to-zinc-900/40 backdrop-blur-xl overflow-hidden shadow-2xl"
+              className="relative p-8 rounded-2xl border border-zinc-800 bg-gradient-to-b from-zinc-950 to-zinc-900/40 backdrop-blur-xl overflow-hidden shadow-2xl"
             >
               {/* Internal subtle glow */}
               <div className="absolute right-0 bottom-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />

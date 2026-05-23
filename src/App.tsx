@@ -95,7 +95,7 @@ export default function App() {
             </a>
           </div>
 
-          <div className="flex items-center gap-1.5 text-zinc-650 font-mono text-[10px]">
+          <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[10px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>AI-assisted workflow enabled</span>
           </div>

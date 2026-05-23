@@ -151,7 +151,7 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                     onOpenPalette();
                   }}
                   type="button"
-                  className="flex items-center justify-center gap-2 w-full px-4 py-3 text-xs font-mono text-center font-medium text-zinc-300 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-lg transition-all cursor-pointer"
+                  className="flex items-center justify-center gap-2 w-full px-4 py-3 text-xs font-mono text-center font-medium text-zinc-300 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg transition-all cursor-pointer"
                 >
                   <Terminal className="w-3.5 h-3.5 text-blue-400" />
                   <span>Dev Console</span>

@@ -94,7 +94,7 @@ export function AboutSection() {
                 key={highlight.title}
                 variants={cardVariants}
                 whileHover={{ y: -4, borderColor: "rgba(63, 63, 70, 0.8)" }}
-                className="relative p-5 rounded-xl border border-zinc-850 bg-zinc-950/45 backdrop-blur-md hover:bg-zinc-950/85 transition-all duration-300 overflow-hidden group"
+                className="relative p-5 rounded-xl border border-zinc-800 bg-zinc-950/45 backdrop-blur-md hover:bg-zinc-950/85 transition-all duration-300 overflow-hidden group"
               >
                 {/* Visual subtle dot pattern in card backgrounds */}
                 <div className="absolute inset-0 dot-grid opacity-10 pointer-events-none" />
