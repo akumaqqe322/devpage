@@ -2,8 +2,11 @@ import { motion } from "motion/react";
 import { Check, ClipboardList, Database, Sparkles, ShieldCheck, Terminal, HeartHandshake } from "lucide-react";
 import { SectionContainer } from "./ui/section-container";
 import { WORKFLOW_STEPS, WorkflowStep } from "../lib/site-data";
+import { useLocale } from "../lib/i18n";
 
 export function WorkflowSection() {
+  const { t, locale } = useLocale();
+
   const getStepIcon = (num: string) => {
     switch (num) {
       case "01":
@@ -40,6 +43,23 @@ export function WorkflowSection() {
     },
   };
 
+  const getTranslatedStep = (num: string, defaultTitle: string, defaultDesc: string, defaultDetails: string[]) => {
+    switch (num) {
+      case "01":
+        return { title: t.workflow.step1Title, description: t.workflow.step1Desc, details: t.workflow.step1Details };
+      case "02":
+        return { title: t.workflow.step2Title, description: t.workflow.step2Desc, details: t.workflow.step2Details };
+      case "03":
+        return { title: t.workflow.step3Title, description: t.workflow.step3Desc, details: t.workflow.step3Details };
+      case "04":
+        return { title: t.workflow.step4Title, description: t.workflow.step4Desc, details: t.workflow.step4Details };
+      case "05":
+        return { title: t.workflow.step5Title, description: t.workflow.step5Desc, details: t.workflow.step5Details };
+      default:
+        return { title: defaultTitle, description: defaultDesc, details: defaultDetails };
+    }
+  };
+
   return (
     <SectionContainer id="workflow" className="border-t border-zinc-900/60 py-24 relative overflow-hidden">
       {/* Background decorations */}
@@ -51,18 +71,29 @@ export function WorkflowSection() {
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-emerald-400">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span>04 . Workflow</span>
+            <span>{t.workflow.disclaimer}</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-sans font-bold tracking-tight text-white leading-tight">
-            AI-assisted workflow, <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-400">
-              но с инженерным контролем
-            </span>
+            {locale === "ru" ? (
+              <>
+                AI-assisted workflow, <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-400">
+                  но с инженерным контролем
+                </span>
+              </>
+            ) : (
+              <>
+                AI-assisted workflow, <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-400">
+                  with complete engineering control
+                </span>
+              </>
+            )}
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Полноценное использование возможностей генеративного ИИ для ускорения рутинных операций, при этом вся ответственность за стандарты, безопасность и архитектуру лежит на человеке.
+            {t.workflow.subtitle}
           </p>
         </div>
 
@@ -83,60 +114,63 @@ export function WorkflowSection() {
               className="space-y-8"
               id="workflow-steps-list"
             >
-              {WORKFLOW_STEPS.map((step: WorkflowStep, index: number) => (
-                <motion.div
-                  key={step.number}
-                  variants={itemVariants}
-                  className="relative flex flex-col sm:flex-row gap-6 group"
-                >
-                  {/* Pipeline Step Marker */}
-                  <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-900 group-hover:border-zinc-700 transition-colors duration-300 self-start shadow-xl">
-                    <span className="absolute -inset-1.5 bg-zinc-900/35 rounded-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    {getStepIcon(step.number)}
-                  </div>
+              {WORKFLOW_STEPS.map((step: WorkflowStep) => {
+                const localized = getTranslatedStep(step.number, step.title, step.description, step.details);
+                return (
+                  <motion.div
+                    key={step.number}
+                    variants={itemVariants}
+                    className="relative flex flex-col sm:flex-row gap-6 group"
+                  >
+                    {/* Pipeline Step Marker */}
+                    <div className="relative z-10 flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-950 border border-zinc-900 group-hover:border-zinc-700 transition-colors duration-300 self-start shadow-xl">
+                      <span className="absolute -inset-1.5 bg-zinc-900/35 rounded-2xl -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {getStepIcon(step.number)}
+                    </div>
 
-                  {/* Content Card container */}
-                  <div className="flex-grow rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 backdrop-blur-sm group-hover:bg-zinc-950/60 group-hover:border-zinc-800 transition-all duration-300 relative overflow-hidden">
-                    
-                    {/* Top corner subtle overlay flare */}
-                    <div className={`absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br ${step.accent.split(' ')[0]} rounded-full blur-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
+                    {/* Content Card container */}
+                    <div className="flex-grow rounded-2xl border border-zinc-900 bg-zinc-950/20 p-6 backdrop-blur-sm group-hover:bg-zinc-950/60 group-hover:border-zinc-800 transition-all duration-300 relative overflow-hidden">
+                      
+                      {/* Top corner subtle overlay flare */}
+                      <div className={`absolute -top-10 -right-10 w-24 h-24 bg-gradient-to-br ${step.accent.split(' ')[0]} rounded-full blur-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300`} />
 
-                    <div className="space-y-4">
-                      {/* Step Header info */}
-                      <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs text-zinc-500 font-bold">
-                          STAGE {step.number}
-                        </span>
-                        <span className={`inline-flex px-2 py-0.5 rounded text-[9px] font-mono border ${step.accent.split(' ').slice(1).join(' ')} bg-zinc-900/20`}>
-                          Active check
-                        </span>
-                      </div>
-
-                      {/* Main explanation body */}
-                      <div className="space-y-1.5">
-                        <h3 className="font-sans font-bold text-base text-zinc-100 group-hover:text-white transition-colors">
-                          {step.title}
-                        </h3>
-                        <p className="font-sans text-xs text-zinc-400 leading-relaxed">
-                          {step.description}
-                        </p>
-                      </div>
-
-                      {/* Details badges row */}
-                      <div className="flex flex-wrap gap-1.5 pt-2">
-                        {step.details.map((detail) => (
-                          <span
-                            key={detail}
-                            className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-900/50 border border-zinc-900 text-[10px] font-mono text-zinc-500 hover:text-zinc-300 transition-colors cursor-default"
-                          >
-                            {detail}
+                      <div className="space-y-4">
+                        {/* Step Header info */}
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-xs text-zinc-500 font-bold">
+                            STAGE {step.number}
                           </span>
-                        ))}
+                          <span className={`inline-flex px-2 py-0.5 rounded text-[9px] font-mono border ${step.accent.split(' ').slice(1).join(' ')} bg-zinc-900/20`}>
+                            Active check
+                          </span>
+                        </div>
+
+                        {/* Main explanation body */}
+                        <div className="space-y-1.5">
+                          <h3 className="font-sans font-bold text-base text-zinc-100 group-hover:text-white transition-colors">
+                            {localized.title}
+                          </h3>
+                          <p className="font-sans text-xs text-zinc-400 leading-relaxed">
+                            {localized.description}
+                          </p>
+                        </div>
+
+                        {/* Details badges row */}
+                        <div className="flex flex-wrap gap-1.5 pt-2">
+                          {localized.details.map((detail) => (
+                            <span
+                              key={detail}
+                              className="inline-flex items-center px-2 py-0.5 rounded-md bg-zinc-900/50 border border-zinc-900 text-[10px] font-mono text-zinc-500 hover:text-zinc-300 transition-colors cursor-default"
+                            >
+                              {detail}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
 
@@ -160,32 +194,41 @@ export function WorkflowSection() {
 
                 <div className="space-y-4">
                   <div className="font-mono text-[10px] text-emerald-500 uppercase tracking-widest font-bold">
-                    Philosophy & Manifesto
+                    {locale === "ru" ? "Философия & Манифест" : "Philosophy & Manifesto"}
                   </div>
                   
                   <blockquote className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight leading-snug">
-                    “AI помогает со скоростью. <br />
-                    Инженер сохраняет качество.”
+                    {locale === "ru" ? (
+                      <>
+                        “AI помогает со скоростью. <br />
+                        Инженер сохраняет качество.”
+                      </>
+                    ) : (
+                      <>
+                        “AI helps with speed. <br />
+                        The engineer maintains quality.”
+                      </>
+                    )}
                   </blockquote>
 
                   <p className="text-xs text-zinc-400 leading-relaxed font-sans">
-                    Генерация кода снижает время выполнения рутинных задач, но не заменяет необходимость мыслить. Умение декомпозировать требования, вовремя останавливать «галлюцинации» моделей, поддерживать чистоту Git-истории и тестировать сценарии — вот что отличает готовый продукт от набора сгенерированных файлов.
+                    {t.workflow.safetyDesc}
                   </p>
                 </div>
 
                 {/* Checklist metrics */}
                 <div className="pt-4 border-t border-zinc-900 space-y-3">
                   <div className="flex items-center justify-between text-[11px] text-zinc-500 font-sans">
-                    <span>Скорость MVP сборки</span>
-                    <span className="font-mono text-emerald-400 font-bold">↑ в 3-4 раза</span>
+                    <span>{locale === "ru" ? "Скорость MVP сборки" : "MVP Build Speed"}</span>
+                    <span className="font-mono text-emerald-400 font-bold">{locale === "ru" ? "↑ в 3-4 раза" : "↑ 3-4x faster"}</span>
                   </div>
                   <div className="flex items-center justify-between text-[11px] text-zinc-500 font-sans">
-                    <span>Контроль за типами & багами</span>
-                    <span className="font-mono text-zinc-300 font-bold">100% ручной ревью</span>
+                    <span>{t.workflow.safetyPoint2}</span>
+                    <span className="font-mono text-zinc-300 font-bold">{t.workflow.safetyVal2}</span>
                   </div>
                   <div className="flex items-center justify-between text-[11px] text-zinc-500 font-sans">
-                    <span>Покрытие тест-кейсов</span>
-                    <span className="font-mono text-zinc-300 font-bold">Zod + UI validation</span>
+                    <span>{t.workflow.safetyPoint3}</span>
+                    <span className="font-mono text-zinc-300 font-bold">{t.workflow.safetyVal3}</span>
                   </div>
                 </div>
               </div>
@@ -193,7 +236,9 @@ export function WorkflowSection() {
 
             {/* Micro disclaimer note in smaller text */}
             <p className="text-[10px] text-zinc-600 font-mono tracking-wide leading-relaxed pl-2">
-              * Разработка ведется итерационными коммитами. Код проверяется на компиляцию на каждой стадии.
+              {locale === "ru"
+                ? "* Разработка ведется итерационными коммитами. Код проверяется на компиляцию на каждой стадии."
+                : "* Development is conducted using iterative commits. Code verification is performed at every stage."}
             </p>
           </div>
 

@@ -6,6 +6,7 @@ import {
   Cpu, Check, Info, Hammer, Sparkle
 } from "lucide-react";
 import { CONTACT_LINKS, NAV_ITEMS } from "../lib/site-data";
+import { useLocale } from "../lib/i18n";
 
 interface DevCommandPaletteProps {
   isOpen: boolean;
@@ -13,6 +14,7 @@ interface DevCommandPaletteProps {
 }
 
 export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
+  const { locale } = useLocale();
   const [searchQuery, setSearchQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const paletteRef = useRef<HTMLDivElement>(null);
@@ -65,13 +67,20 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
     }
   };
 
-  const BUILD_LOGS = [
+  const BUILD_LOGS = locale === "ru" ? [
+    { stage: "Stage 1", text: "Визуальный фундамент, Hero, Шапка", status: "Done" },
+    { stage: "Stage 2", text: "Детализация About и навыков", status: "Done" },
+    { stage: "Stage 3", text: "Адаптивная сетка проектов", status: "Done" },
+    { stage: "Stage 4", text: "AI-assisted workflow интерактивная диаграмма", status: "Done" },
+    { stage: "Stage 5", text: "Система контактов и аккуратные ссылки", status: "Done" },
+    { stage: "Stage 6", text: "Командная палитра и мультиязычность RU/EN", status: "Hot" }
+  ] : [
     { stage: "Stage 1", text: "Visual foundation, Hero, Header", status: "Done" },
     { stage: "Stage 2", text: "About and Skills detailing", status: "Done" },
     { stage: "Stage 3", text: "Adaptive Projects Grid", status: "Done" },
     { stage: "Stage 4", text: "AI-assisted workflow engine diagram", status: "Done" },
     { stage: "Stage 5", text: "Contact System and Clean Links layout", status: "Done" },
-    { stage: "Stage 6", text: "Command palette signature feature integration", status: "Hot" }
+    { stage: "Stage 6", text: "Command palette & RU/EN multi-language", status: "Hot" }
   ];
 
   // Helper icons for site categories
@@ -106,15 +115,53 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
     }
   };
 
+  const getTranslatedNavLabel = (label: string) => {
+    switch (label.toLowerCase()) {
+      case "about":
+        return locale === "ru" ? "Обо мне" : "About";
+      case "skills":
+        return locale === "ru" ? "Навыки" : "Skills";
+      case "projects":
+        return locale === "ru" ? "Проекты" : "Projects";
+      case "workflow":
+        return locale === "ru" ? "Процесс" : "Workflow";
+      case "contact":
+        return locale === "ru" ? "Контакты" : "Contact";
+      default:
+        return label;
+    }
+  };
+
+  const getTranslatedContactLink = (label: string, defaultDesc: string) => {
+    switch (label) {
+      case "Telegram":
+        return { label: locale === "ru" ? "Telegram" : "Telegram", description: locale === "ru" ? "Для быстрого и прямого диалога" : "For fast and direct chat" };
+      case "HH Resume":
+        return { label: locale === "ru" ? "Резюме HeadHunter" : "HH Resume", description: locale === "ru" ? "Полный профиль карьерного пути" : "Full career path timeline" };
+      case "GitHub / Main":
+        return { label: locale === "ru" ? "GitHub / Основной" : "GitHub / Main", description: locale === "ru" ? "Главный профиль с репозиториями" : "Primary account containing repositories" };
+      case "GitHub / Additional":
+        return { label: locale === "ru" ? "GitHub / Дополнительный" : "GitHub / Additional", description: locale === "ru" ? "Архив учебных работ и прототипов" : "Secondary playground & project archives" };
+      default:
+        return { label, description: defaultDesc };
+    }
+  };
+
   // Filter lists based on search
   const filteredNavItems = NAV_ITEMS.filter(item => 
-    item.label.toLowerCase().includes(searchQuery.toLowerCase())
+    item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    getTranslatedNavLabel(item.label).toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const filteredLinks = CONTACT_LINKS.filter(link => 
-    link.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    link.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredLinks = CONTACT_LINKS.filter(link => {
+    const translated = getTranslatedContactLink(link.label, link.description);
+    return (
+      link.label.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      link.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      translated.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      translated.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   return (
     <AnimatePresence>
@@ -142,7 +189,7 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Developer command palette"
-            className="w-full max-w-2xl bg-[#08080a]/90 backdrop-blur-xl border border-white/[0.08] rounded-3xl shadow-2xl shadow-black/60 relative z-10 overflow-hidden flex flex-col max-h-[80vh] text-zinc-100"
+            className="w-full max-w-2xl bg-[#08080a]/90 backdrop-blur-xl border border-white/[0.08] rounded-3xl shadow-2xl shadow-black/60 relative z-10 overflow-hidden flex flex-col max-h-[85vh] text-zinc-100"
             id="cmd-dialog-frame"
           >
             {/* Header / Input controls */}
@@ -153,14 +200,14 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Фильтровать действия, проекты, контакты..."
+                placeholder={locale === "ru" ? "Фильтровать действия, проекты, контакты..." : "Filter actions, projects, contacts..."}
                 className="w-full bg-transparent border-none text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none selection:bg-cyan-550/20"
                 id="cmd-input-field"
               />
               <button 
                 onClick={onClose}
                 className="p-1.5 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.06] text-zinc-400 hover:text-white transition-all cursor-pointer"
-                aria-label="Закрыть консоль"
+                aria-label={locale === "ru" ? "Закрыть консоль" : "Close console"}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -173,7 +220,7 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {filteredNavItems.length > 0 && (
                 <div className="space-y-2">
                   <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
-                    Навигация по сайту
+                    {locale === "ru" ? "Навигация по сайту" : "Site Navigation"}
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                     {filteredNavItems.map((item) => (
@@ -188,12 +235,12 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
                           </div>
                           <div>
                             <span className="text-xs font-semibold text-zinc-200 group-hover:text-white">
-                              {item.label}
+                              {getTranslatedNavLabel(item.label)}
                             </span>
                           </div>
                         </div>
                         <span className="text-[10px] font-mono text-zinc-500 bg-white/[0.03] px-1.5 py-0.5 rounded-md border border-white/[0.06] group-hover:text-zinc-300 transition-colors">
-                          Скролл
+                          {locale === "ru" ? "Скролл" : "Scroll"}
                         </span>
                       </button>
                     ))}
@@ -205,41 +252,44 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {filteredLinks.length > 0 && (
                 <div className="space-y-2">
                   <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
-                    Внешние профили и контакты
+                    {locale === "ru" ? "Внешние профили и контакты" : "External Profiles & Contacts"}
                   </span>
                   <div className="space-y-1">
-                    {filteredLinks.map((link) => (
-                      <a
-                        key={link.label}
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        className="flex items-center justify-between p-2.5 rounded-2xl border border-transparent hover:border-white/[0.06] bg-transparent hover:bg-white/[0.04] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 group"
-                      >
-                        <div className="flex items-center gap-3">
-                          <div className="p-2 ml-1 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.08] group-hover:border-white/[0.1] transition-all">
-                            {getProfileIcon(link.label)}
+                    {filteredLinks.map((link) => {
+                      const translated = getTranslatedContactLink(link.label, link.description);
+                      return (
+                        <a
+                          key={link.label}
+                          href={link.href}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="flex items-center justify-between p-2.5 rounded-2xl border border-transparent hover:border-white/[0.06] bg-transparent hover:bg-white/[0.04] transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 group"
+                        >
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 ml-1 rounded-xl bg-white/[0.03] border border-white/[0.05] group-hover:bg-white/[0.08] group-hover:border-white/[0.1] transition-all">
+                              {getProfileIcon(link.label)}
+                            </div>
+                            <div className="space-y-0.5">
+                              <span className="text-xs font-semibold text-zinc-200 group-hover:text-white flex items-center gap-1.5">
+                                {translated.label}
+                                {link.username && (
+                                  <span className="text-[10px] text-zinc-500 font-mono font-normal">
+                                    {link.username}
+                                  </span>
+                                )}
+                              </span>
+                              <span className="text-[11px] text-zinc-500 leading-none">
+                                {translated.description}
+                              </span>
+                            </div>
                           </div>
-                          <div className="space-y-0.5">
-                            <span className="text-xs font-semibold text-zinc-200 group-hover:text-white flex items-center gap-1.5">
-                              {link.label}
-                              {link.username && (
-                                <span className="text-[10px] text-zinc-500 font-mono font-normal">
-                                  {link.username}
-                                </span>
-                              )}
-                            </span>
-                            <span className="text-[11px] text-zinc-500 leading-none">
-                              {link.description}
-                            </span>
+                          <div className="flex items-center gap-1 text-zinc-500 group-hover:text-cyan-400 font-mono text-[9px] mr-2 transition-colors">
+                            <span>{locale === "ru" ? "Открыть" : "Open"}</span>
+                            <ExternalLink className="w-3 h-3" />
                           </div>
-                        </div>
-                        <div className="flex items-center gap-1 text-zinc-500 group-hover:text-cyan-400 font-mono text-[9px] mr-2 transition-colors">
-                          <span>Открыть</span>
-                          <ExternalLink className="w-3 h-3" />
-                        </div>
-                      </a>
-                    ))}
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -248,12 +298,14 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
               {searchQuery === "" && (
                 <div className="space-y-3">
                   <span className="text-[10px] font-mono font-semibold tracking-wider text-zinc-500 uppercase block px-2">
-                    История сборки лендинга (Build Logs)
+                    {locale === "ru" ? "История сборки лендинга (Build Logs)" : "Landing Build History (Build Logs)"}
                   </span>
                   <div className="rounded-2xl border border-white/[0.06] bg-black/25 p-4 space-y-3.5">
                     <div className="flex items-center gap-2 text-zinc-400">
                       <Hammer className="w-4 h-4 text-purple-400/80" />
-                      <span className="text-xs font-semibold font-mono">Build Workflow Terminal:</span>
+                      <span className="text-xs font-semibold font-mono">
+                        {locale === "ru" ? "Рабочий процесс терминала сборки:" : "Build Workflow Terminal:"}
+                      </span>
                     </div>
                     <div className="space-y-2 font-mono text-[11px] text-zinc-400 leading-relaxed">
                       {BUILD_LOGS.map((log) => (
@@ -279,11 +331,15 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
             {/* Footer principle */}
             <div className="p-4 border-t border-white/[0.06] bg-[#0c0c0e]/80 flex items-center justify-between text-[11px] text-zinc-500 relative z-10 font-mono">
               <div className="flex items-center gap-2">
-                <Sparkle className="w-3.5 h-3.5 text-blue-400" />
-                <span>AI accelerates, engineering control keeps reliability.</span>
+                <Sparkle className="w-3.5 h-3.5 text-blue-400 font-bold shrink-0" />
+                <span className="truncate">
+                  {locale === "ru" 
+                    ? "ИИ ускоряет рутину, инженерный контроль гарантирует надежность." 
+                    : "AI accelerates routine, engineering control guarantees reliability."}
+                </span>
               </div>
-              <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-zinc-500 bg-white/[0.03] px-2 py-0.5 rounded-md border border-white/[0.06]">
-                <span>ESC to close</span>
+              <div className="hidden sm:flex items-center gap-1.5 text-[10px] text-zinc-500 bg-white/[0.03] px-2 py-0.5 rounded-md border border-white/[0.06] shrink-0">
+                <span>{locale === "ru" ? "ESC чтобы закрыть" : "ESC to close"}</span>
               </div>
             </div>
           </motion.div>

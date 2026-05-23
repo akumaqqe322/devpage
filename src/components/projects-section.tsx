@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { FolderGit2, CheckCircle2, Github, ExternalLink, Lock } from "lucide-react";
 import { SectionContainer } from "./ui/section-container";
 import { FEATURED_PROJECTS, Project } from "../lib/site-data";
+import { useLocale } from "../lib/i18n";
 
 interface ProjectCardProps {
   project: Project;
@@ -9,6 +10,50 @@ interface ProjectCardProps {
 }
 
 function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
+  const { t, locale } = useLocale();
+
+  const getTranslatedProject = (id: string, fallbackDesc: string, fallbackHighlights: string[]) => {
+    switch (id) {
+      case "clientflow":
+        return { description: t.projects.proj1Desc, highlights: t.projects.proj1Highlights };
+      case "repair-requests":
+        return { description: t.projects.proj2Desc, highlights: t.projects.proj2Highlights };
+      case "routeflow":
+        return { description: t.projects.proj3Desc, highlights: t.projects.proj3Highlights };
+      case "zenpulse":
+        return { description: t.projects.proj4Desc, highlights: t.projects.proj4Highlights };
+      case "ai-mvp-guide":
+        return { description: t.projects.proj5Desc, highlights: t.projects.proj5Highlights };
+      default:
+        return { description: fallbackDesc, highlights: fallbackHighlights };
+    }
+  };
+
+  const getTranslatedType = (type: string) => {
+    if (locale === "en") return type;
+    if (type === "Web Service") return "Веб-сервис";
+    if (type === "SPA Prototype") return "Прототип SPA";
+    if (type === "Flutter App") return "Flutter-приложение";
+    return type;
+  };
+
+  const getTranslatedCategory = (category: string) => {
+    if (locale === "en") return category;
+    if (category === "MVP") return "MVP";
+    if (category === "Product") return "Продукт";
+    return category;
+  };
+
+  const getTranslatedStatus = (status: string) => {
+    if (locale === "en") return status;
+    if (status === "Completed") return "Завершен";
+    if (status === "Production Deploy") return "В продакшене";
+    if (status === "Demo Ready" || status.toLowerCase() === "demo-ready") return "Демо готово";
+    return status;
+  };
+
+  const localized = getTranslatedProject(project.id, project.description, project.highlights);
+
   return (
     <div className="h-full relative rounded-2xl border border-zinc-800 bg-zinc-950/40 backdrop-blur-xl transition-all duration-300 group-hover:border-zinc-700/80 group-hover:bg-zinc-950/70 overflow-hidden flex flex-col justify-between">
       {/* Subtle Grid overlay background */}
@@ -22,18 +67,18 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-mono bg-zinc-900 border border-zinc-800 text-zinc-400">
-              {project.type}
+              {getTranslatedType(project.type)}
             </span>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-mono bg-blue-500/5 border border-blue-500/10 text-blue-400">
               <span className="w-1 h-1 rounded-full bg-blue-400" />
-              {project.category}
+              {getTranslatedCategory(project.category)}
             </span>
           </div>
           
           {/* Live status flow */}
           <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-zinc-900/60 text-zinc-400 border border-zinc-800">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            {project.status}
+            {getTranslatedStatus(project.status)}
           </span>
         </div>
 
@@ -46,7 +91,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
             </h3>
             
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-3xl">
-              {project.description}
+              {localized.description}
             </p>
           </div>
 
@@ -55,10 +100,10 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
             {/* Bullet Highlights layout */}
             <div className="space-y-2.5">
               <h4 className="text-[11px] font-mono text-zinc-500 tracking-wider font-semibold uppercase">
-                Ключевые фичи / Решения
+                {locale === "ru" ? "Ключевые фичи / Решения" : "Key Features / Solutions"}
               </h4>
               <ul className="space-y-2">
-                {project.highlights.map((highlight) => (
+                {localized.highlights.map((highlight) => (
                   <li key={highlight} className="flex items-start gap-2.5 text-xs text-zinc-400 font-sans">
                     <CheckCircle2 className="w-4 h-4 text-blue-500/70 mt-0.5 shrink-0" />
                     <span>{highlight}</span>
@@ -70,7 +115,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
             {/* Tech Stack Pills list */}
             <div className="space-y-3">
               <h4 className="text-[11px] font-mono text-zinc-500 tracking-wider font-semibold uppercase">
-                Стек технологий
+                {locale === "ru" ? "Стек технологий" : "Tech Stack"}
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {project.techStack.map((tech) => (
@@ -97,7 +142,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
               rel="noreferrer noopener"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-md shadow-blue-500/10 hover:shadow-blue-500/20 active:scale-98 transition-all duration-200 cursor-pointer"
             >
-              <span>Live Demo</span>
+              <span>{t.projects.liveDemo}</span>
               <ExternalLink className="w-3.5 h-3.5 text-white/90" />
             </a>
           )}
@@ -111,7 +156,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-blue-400" />
-                <span>AI Brief Builder Repo</span>
+                <span>{locale === "ru" ? "AI Brief Builder Репозиторий" : "AI Brief Builder Repo"}</span>
               </a>
               <a
                 href={project.repoUrlAdditional}
@@ -120,7 +165,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-cyan-400" />
-                <span>AI MVP Guide Repo</span>
+                <span>{locale === "ru" ? "AI MVP Guide Репозиторий" : "AI MVP Guide Repo"}</span>
               </a>
             </div>
           ) : project.repoUrl ? (
@@ -131,7 +176,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-all duration-200"
             >
               <Github className="w-3.5 h-3.5 text-zinc-400" />
-              <span>Открыть репозиторий</span>
+              <span>{t.projects.openRepo}</span>
             </a>
           ) : (
             <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-500">
@@ -146,6 +191,8 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
 }
 
 export function ProjectsSection() {
+  const { t, locale } = useLocale();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -179,18 +226,29 @@ export function ProjectsSection() {
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-blue-400">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            <span>03 . Проекты</span>
+            <span>{t.projects.label}</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-sans font-extrabold tracking-tight text-white leading-tight">
-            Проекты, которые показывают <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
-              продуктовый подход
-            </span>
+            {locale === "ru" ? (
+              <>
+                Проекты, которые показывают <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
+                  продуктовый подход
+                </span>
+              </>
+            ) : (
+              <>
+                Projects highlighting <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
+                  a product mindset
+                </span>
+              </>
+            )}
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Не просто отдельные учебные экраны, а рабочие прототипы с продуманным интерфейсом, чистой логикой, безопасными данными, деплоем и AI-assisted workflow.
+            {t.projects.subtitle}
           </p>
         </div>
 

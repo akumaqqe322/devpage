@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, Terminal, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { NAV_ITEMS } from "../lib/site-data";
+import { useLocale } from "../lib/i18n";
 
 export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   // Track scrolling to apply dynamic borders and background opacity
   useEffect(() => {
@@ -34,6 +36,17 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
         top: offsetPosition,
         behavior: "smooth"
       });
+    }
+  };
+
+  const getTranslatedLabel = (label: string) => {
+    switch (label.toLowerCase()) {
+      case "about": return t.header.navAbout;
+      case "skills": return t.header.navSkills;
+      case "projects": return t.header.navProjects;
+      case "workflow": return t.header.navWorkflow;
+      case "contact": return t.header.navContact;
+      default: return label;
     }
   };
 
@@ -74,13 +87,41 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                 onClick={(e) => handleScrollToSection(e, item.href)}
                 className="text-sm font-medium text-zinc-400 hover:text-white hover:translate-y-[-0.5px] transition-all duration-200 cursor-pointer"
               >
-                {item.label}
+                {getTranslatedLabel(item.label)}
               </a>
             ))}
           </nav>
 
           {/* CTA Header Actions */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Desktop Language Switcher */}
+            <div className="inline-flex items-center rounded-lg border border-white/[0.08] bg-zinc-950/40 p-0.5 mr-1" id="lang-switcher">
+              <button
+                type="button"
+                onClick={() => setLocale("ru")}
+                className={`px-2 py-1 text-[10px] font-mono font-bold rounded-md transition-all cursor-pointer ${
+                  locale === "ru"
+                    ? "bg-white/[0.08] text-white"
+                    : "text-zinc-500 hover:text-zinc-300"
+                }`}
+                aria-label="Switch language to Russian"
+              >
+                RU
+              </button>
+              <button
+                type="button"
+                onClick={() => setLocale("en")}
+                className={`px-2 py-1 text-[10px] font-mono font-bold rounded-md transition-all cursor-pointer ${
+                  locale === "en"
+                    ? "bg-white/[0.08] text-white"
+                    : "text-zinc-500 hover:text-zinc-300"
+                }`}
+                aria-label="Switch language to English"
+              >
+                EN
+              </button>
+            </div>
+
             <button
               onClick={onOpenPalette}
               type="button"
@@ -88,7 +129,7 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
               id="header-dev-palette-btn"
             >
               <Terminal className="w-3.5 h-3.5 text-blue-400 group-hover:text-cyan-400 transition-colors" />
-              <span>Dev Console</span>
+              <span>{t.header.devConsole}</span>
               <kbd className="inline-flex text-[9px] px-1.5 py-0.5 bg-white/[0.03] border border-white/[0.05] rounded font-mono text-zinc-500 leading-none">
                 ⌘K
               </kbd>
@@ -100,7 +141,7 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
               className="inline-flex items-center justify-center px-4 py-2 text-xs font-mono font-medium tracking-wide text-white bg-zinc-950 border border-zinc-800 hover:border-zinc-700 rounded-lg hover:bg-zinc-900 transition-all duration-200 select-none group cursor-pointer"
               id="header-cta"
             >
-              Contact
+              {t.header.contact}
               <ArrowUpRight className="w-3.5 h-3.5 ml-1 text-zinc-500 group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </a>
           </div>
@@ -141,10 +182,40 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                   onClick={(e) => handleScrollToSection(e, item.href)}
                   className="block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 border-l border-transparent hover:border-blue-500 transition-all duration-200 cursor-pointer"
                 >
-                  {item.label}
+                  {getTranslatedLabel(item.label)}
                 </a>
               ))}
-              <div className="pt-4 px-3 flex flex-col gap-2">
+              
+              {/* Mobile Language Switcher block */}
+              <div className="flex items-center justify-between px-3 py-2.5 border-b border-zinc-900/60 pb-3 mb-2">
+                <span className="text-xs font-mono text-zinc-500">Language / Язык</span>
+                <div className="inline-flex items-center rounded-lg border border-white/[0.08] bg-zinc-950/40 p-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setLocale("ru")}
+                    className={`px-3 py-1 text-xs font-mono font-bold rounded-md transition-all cursor-pointer ${
+                      locale === "ru"
+                        ? "bg-white/[0.08] text-white"
+                        : "text-zinc-500 hover:text-zinc-350"
+                    }`}
+                  >
+                    RU
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setLocale("en")}
+                    className={`px-3 py-1 text-xs font-mono font-bold rounded-md transition-all cursor-pointer ${
+                      locale === "en"
+                        ? "bg-white/[0.08] text-white"
+                        : "text-zinc-500 hover:text-zinc-350"
+                    }`}
+                  >
+                    EN
+                  </button>
+                </div>
+              </div>
+
+              <div className="pt-2 px-3 flex flex-col gap-2">
                 <button
                   onClick={() => {
                     setIsOpen(false);
@@ -154,7 +225,7 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                   className="flex items-center justify-center gap-2 w-full px-4 py-3 text-xs font-mono text-center font-medium text-zinc-300 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 rounded-lg transition-all cursor-pointer"
                 >
                   <Terminal className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Dev Console</span>
+                  <span>{t.header.devConsole}</span>
                 </button>
 
                 <a
@@ -162,7 +233,7 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                   onClick={(e) => handleScrollToSection(e, "#contact")}
                   className="flex items-center justify-center w-full px-4 py-3 text-xs font-mono text-center font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-all cursor-pointer"
                 >
-                  Contact Me
+                  {t.header.contactMe}
                 </a>
               </div>
             </div>

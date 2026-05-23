@@ -1,9 +1,12 @@
 import { motion } from "motion/react";
-import { Send, Briefcase, Github, ExternalLink, Sparkles, MessageSquare } from "lucide-react";
+import { Send, Briefcase, Github, ExternalLink, Sparkles } from "lucide-react";
 import { SectionContainer } from "./ui/section-container";
 import { CONTACT_LINKS, ContactLink } from "../lib/site-data";
+import { useLocale } from "../lib/i18n";
 
 export function ContactSection() {
+  const { t, locale } = useLocale();
+
   const getIcon = (label: string) => {
     switch (label) {
       case "Telegram":
@@ -38,6 +41,21 @@ export function ContactSection() {
     },
   };
 
+  const getTranslatedLink = (label: string, defaultDesc: string) => {
+    switch (label) {
+      case "Telegram":
+        return { label: t.contact.tgTitle, description: t.contact.tgDesc };
+      case "HH Resume":
+        return { label: t.contact.hhTitle, description: t.contact.hhDesc };
+      case "GitHub / Main":
+        return { label: t.contact.ghMainTitle, description: t.contact.ghMainDesc };
+      case "GitHub / Additional":
+        return { label: t.contact.ghAddTitle, description: t.contact.ghAddDesc };
+      default:
+        return { label, description: defaultDesc };
+    }
+  };
+
   return (
     <SectionContainer id="contact" className="border-t border-zinc-900/60 py-24 relative overflow-hidden">
       {/* Glow details in backgrounds */}
@@ -50,18 +68,29 @@ export function ContactSection() {
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-purple-400">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-            <span>05 . Контакты</span>
+            <span>{t.contact.label}</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl font-sans font-extrabold tracking-tight text-white leading-tight">
-            Готов обсудить <br className="hidden sm:inline" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400">
-              frontend / fullstack задачи
-            </span>
+            {locale === "ru" ? (
+              <>
+                Готов обсудить <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400">
+                  frontend / fullstack задачи
+                </span>
+              </>
+            ) : (
+              <>
+                Ready to discuss <br className="hidden sm:inline" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-indigo-300 to-blue-400">
+                  frontend & fullstack challenges
+                </span>
+              </>
+            )}
           </h2>
 
           <p className="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-            Открыт к junior+ / strong junior позициям, продуктовым командам и проектам, где важны аккуратный интерфейс, логика, данные и AI-assisted workflow.
+            {t.contact.subtitle}
           </p>
         </div>
 
@@ -77,15 +106,17 @@ export function ContactSection() {
                 {/* Active Availability Badge */}
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/5 border border-emerald-500/20 text-[11px] font-mono text-emerald-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>Доступен для предложений</span>
+                  <span>{t.contact.availability}</span>
                 </div>
 
                 <div className="space-y-3">
                   <h3 className="text-xl font-sans font-bold text-white">
-                    Давайте создадим что-то надежное
+                    {t.contact.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                    Если вам нужен специалист, который ценит качество исходного кода, думает о конечном продукте, умеет общаться без лишнего пафоса и берет лучшее от современных AI-инструментов — я на связи.
+                    {locale === "ru"
+                      ? "Если вам нужен специалист, который ценит качество исходного кода, думает о конечном продукте, умеет общаться без лишнего пафоса и берет лучшее от современных AI-инструментов — я на связи."
+                      : "If you need an engineer who values source code quality, keeps the product vision in mind, communicates transparently, and gets the best out of modern AI tools — let's connect."}
                   </p>
                 </div>
               </div>
@@ -96,8 +127,8 @@ export function ContactSection() {
                   <Sparkles className="w-4 h-4 text-blue-400" />
                 </div>
                 <div className="font-mono text-[10px] text-zinc-550 leading-relaxed">
-                  Ориентировочное время ответа <br />
-                  <span className="text-zinc-400">в Telegram — в течение пары часов</span>
+                  {locale === "ru" ? "Ориентировочное время ответа" : "Estimated response time"} <br />
+                  <span className="text-zinc-400">{t.contact.responseRate}</span>
                 </div>
               </div>
             </div>
@@ -115,6 +146,7 @@ export function ContactSection() {
             >
               {CONTACT_LINKS.map((link: ContactLink) => {
                 const isPrimary = link.kind === "primary";
+                const localizedLink = getTranslatedLink(link.label, link.description);
                 return (
                   <motion.a
                     key={link.label}
@@ -140,7 +172,7 @@ export function ContactSection() {
                         </div>
                         
                         <div className="flex items-center gap-1 text-zinc-500 group-hover:text-zinc-300 transition-colors">
-                          <span className="text-[10px] font-mono font-medium">Открыть</span>
+                          <span className="text-[10px] font-mono font-medium">{locale === "ru" ? "Открыть" : "Open"}</span>
                           <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </div>
                       </div>
@@ -148,7 +180,7 @@ export function ContactSection() {
                       <div className="space-y-1">
                         <div className="flex items-center gap-1.5">
                           <h4 className="text-sm font-semibold text-zinc-100 group-hover:text-white transition-colors">
-                            {link.label}
+                            {localizedLink.label}
                           </h4>
                           {isPrimary && (
                             <span className="inline-flex px-1.5 py-0.5 text-[9px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/10 rounded">
@@ -157,12 +189,12 @@ export function ContactSection() {
                           )}
                         </div>
                         <p className="text-xs text-zinc-400 leading-relaxed font-sans">
-                          {link.description}
+                          {localizedLink.description}
                         </p>
                       </div>
                     </div>
 
-                    {/* Footer string representation (e.g. (@cxldforeverr) or label string) */}
+                    {/* Footer string representation */}
                     <div className="pt-4 mt-4 border-t border-zinc-900/50 flex items-center justify-between text-[11px] font-mono text-zinc-550 group-hover:text-zinc-400 transition-colors relative z-10">
                       <span>{link.username ? link.username : link.label.toLowerCase().replace(/\s+/g, '')}</span>
                       <span className="text-[9px] text-zinc-700 tracking-widest">CONNECT_OK</span>

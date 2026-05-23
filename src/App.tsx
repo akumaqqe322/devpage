@@ -12,9 +12,11 @@ import { ProjectsSection } from "./components/projects-section";
 import { WorkflowSection } from "./components/workflow-section";
 import { ContactSection } from "./components/contact-section";
 import { DevCommandPalette } from "./components/dev-command-palette";
+import { LanguageProvider, useLocale } from "./lib/i18n";
 
-export default function App() {
+function PortfolioApp() {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const { t } = useLocale();
 
   // Capture Ctrl+K / Cmd+K hotkey combo across viewports
   useEffect(() => {
@@ -56,8 +58,10 @@ export default function App() {
       <footer className="w-full border-t border-zinc-900 bg-black/45 py-10 px-4 sm:px-6 lg:px-8 text-xs text-zinc-500">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex flex-col items-center md:items-start gap-1">
-            <span className="font-mono text-zinc-300 text-xs shadow-sm">© {new Date().getFullYear()} Kirill</span>
-            <span className="text-zinc-600 font-sans text-[11px]">Built as a product-style developer portfolio.</span>
+            <span className="font-mono text-zinc-300 text-xs shadow-sm">
+              {t.contact.footerCopyright.replace("{year}", new Date().getFullYear().toString())}
+            </span>
+            <span className="text-zinc-600 font-sans text-[11px]">{t.contact.footerContext}</span>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 font-sans text-xs">
@@ -97,7 +101,7 @@ export default function App() {
 
           <div className="flex items-center gap-1.5 text-zinc-500 font-mono text-[10px]">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>AI-assisted workflow enabled</span>
+            <span>{t.contact.footerStatus}</span>
           </div>
         </div>
       </footer>
@@ -105,6 +109,14 @@ export default function App() {
       {/* Developer Command Palette Layer */}
       <DevCommandPalette isOpen={isPaletteOpen} onClose={() => setIsPaletteOpen(false)} />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <PortfolioApp />
+    </LanguageProvider>
   );
 }
 

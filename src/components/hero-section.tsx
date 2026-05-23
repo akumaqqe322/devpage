@@ -1,9 +1,11 @@
 import { motion } from "motion/react";
 import { ArrowRight, Github, Send, Sparkles, CheckCircle2, Award } from "lucide-react";
-import { STATUS_PILLS } from "../lib/site-data";
 import { HeroVisual } from "./hero-visual";
+import { useLocale } from "../lib/i18n";
 
 export function HeroSection() {
+  const { t, locale } = useLocale();
+
   // Handler to scroll to a section with an offset
   const handleScrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -18,6 +20,12 @@ export function HeroSection() {
       });
     }
   };
+
+  const statusPills = [
+    { text: t.hero.statusRole, type: "role" },
+    { text: t.hero.statusWorkflow, type: "tech" },
+    { text: t.hero.statusDemos, type: "focus" }
+  ];
 
   return (
     <section
@@ -36,7 +44,7 @@ export function HeroSection() {
             
             {/* Status Pills Row */}
             <div className="flex flex-wrap gap-2 mb-6" id="status-pills-row">
-              {STATUS_PILLS.map((pill, idx) => {
+              {statusPills.map((pill, idx) => {
                 const isRole = pill.type === "role";
                 const isTech = pill.type === "tech";
                 return (
@@ -75,20 +83,22 @@ export function HeroSection() {
               id="hero-headings"
             >
               <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-sans font-extrabold tracking-tight text-white leading-[1.12]">
-                Кирилл — <br className="hidden sm:inline" />
+                {locale === "ru" ? "Кирилл" : "Kirill"} — <br className="hidden sm:inline" />
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-indigo-400">
-                  Frontend / Fullstack Developer
+                  {t.hero.subtitle}
                 </span>
               </h1>
               
               <p className="text-lg sm:text-xl text-zinc-300 font-sans max-w-xl leading-relaxed">
-                Собираю web и mobile-продукты с фокусом на React, Next.js, Vue, Node.js и AI-assisted workflows.
+                {locale === "ru"
+                  ? "Собираю web и mobile-продукты с фокусом на React, Next.js, Vue, Node.js и AI-assisted workflows."
+                  : "Building web & mobile products focused on React, Next.js, Vue, Node.js & AI-assisted workflows."}
               </p>
               
               <div className="h-px w-20 bg-gradient-to-r from-blue-500/50 to-transparent my-6" />
               
               <p className="text-sm sm:text-base text-zinc-400 font-sans max-w-lg leading-relaxed">
-                От идеи и интерфейса до логики, данных, деплоя и аккуратного UX-polish.
+                {t.hero.description}
               </p>
             </motion.div>
 
@@ -104,7 +114,7 @@ export function HeroSection() {
                 onClick={() => handleScrollToSection("projects")}
                 className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-sans text-sm font-medium transition-all group shadow-xl shadow-blue-500/10 cursor-pointer"
               >
-                Посмотреть проекты
+                {locale === "ru" ? "Посмотреть проекты" : "View projects"}
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </button>
 
@@ -123,7 +133,7 @@ export function HeroSection() {
                 className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-transparent text-zinc-400 hover:text-white font-sans text-sm font-medium transition-all cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5 mr-2" />
-                Связаться
+                {t.hero.ctaContact}
               </button>
             </motion.div>
           </div>
