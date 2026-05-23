@@ -259,3 +259,47 @@ export const WORKFLOW_STEPS: WorkflowStep[] = [
   }
 ];
 
+export type ContactLinkKind = "primary" | "secondary";
+
+export interface ContactLink {
+  label: string;
+  description: string;
+  href: string;
+  kind: ContactLinkKind;
+  external: boolean;
+  username?: string;
+}
+
+export const CONTACT_LINKS: ContactLink[] = [
+  {
+    label: "Telegram",
+    description: "Быстрая связь и обсуждение вакансий / проектов.",
+    href: "https://t.me/cxldforeverr",
+    kind: "primary",
+    external: true,
+    username: "@cxldforeverr"
+  },
+  {
+    label: "HH Resume",
+    description: "Резюме, опыт и актуальный профиль для работодателей.",
+    href: "https://hh.ru/resume/5681f646ff103c3d100039ed1f366d6364344f",
+    kind: "secondary",
+    external: true
+  },
+  {
+    label: "GitHub / Main",
+    description: "Основной профиль с portfolio-ready проектами.",
+    href: "https://github.com/flexxxikqwe",
+    kind: "secondary",
+    external: true
+  },
+  {
+    label: "GitHub / Additional",
+    description: "Дополнительный профиль с экспериментами, тестовыми и pet-проектами.",
+    href: "https://github.com/akumaqqe322",
+    kind: "secondary",
+    external: true
+  }
+];
+
+

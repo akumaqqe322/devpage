@@ -109,7 +109,7 @@ export function HeroSection() {
               </button>
 
               <a
-                href="https://github.com"
+                href="https://github.com/flexxxikqwe"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center px-5 py-3 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/85 text-zinc-300 hover:text-white font-sans text-sm font-medium transition-all cursor-pointer"
