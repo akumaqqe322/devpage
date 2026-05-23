@@ -212,3 +212,50 @@ export const FEATURED_PROJECTS: Project[] = [
     featured: false
   }
 ];
+
+export interface WorkflowStep {
+  number: string;
+  title: string;
+  description: string;
+  details: string[];
+  accent: string;
+}
+
+export const WORKFLOW_STEPS: WorkflowStep[] = [
+  {
+    number: "01",
+    title: "Product framing",
+    description: "Сначала формулирую задачу как продуктовый сценарий: кто пользователь, какую проблему решаем, какой результат должен быть виден в интерфейсе.",
+    details: ["User flow", "Feature scope", "Edge cases", "Acceptance criteria"],
+    accent: "from-blue-500/20 to-cyan-500/20 border-blue-500/30 text-blue-400"
+  },
+  {
+    number: "02",
+    title: "Architecture & data model",
+    description: "Продумываю структуру приложения: компоненты, состояние, API, валидацию, хранение данных и границы ответственности.",
+    details: ["Component structure", "API contracts", "Validation", "Data persistence"],
+    accent: "from-purple-500/20 to-indigo-500/20 border-purple-500/30 text-purple-400"
+  },
+  {
+    number: "03",
+    title: "Prompt-driven implementation",
+    description: "Разбиваю работу на небольшие этапы и использую AI-агентов для ускорения реализации, не отдавая им контроль над направлением проекта.",
+    details: ["Small iterations", "Clear constraints", "Code review", "No blind generation"],
+    accent: "from-emerald-500/20 to-teal-500/20 border-emerald-500/30 text-emerald-400"
+  },
+  {
+    number: "04",
+    title: "Verification & debugging",
+    description: "Проверяю не только факт запуска, а реальные сценарии: адаптивность, состояния загрузки/ошибок, edge cases, build и lint.",
+    details: ["Lint/build checks", "Manual QA", "Regression fixes", "UX states"],
+    accent: "from-amber-500/20 to-orange-500/20 border-amber-500/30 text-amber-500"
+  },
+  {
+    number: "05",
+    title: "Demo polish & delivery",
+    description: "Финально довожу проект до состояния, которое можно показать: чистый README, честное описание, деплой, понятные карточки проекта и аккуратный UX.",
+    details: ["README.md", "Production Deploy", "UI/UX polish", "Portfolio-ready result"],
+    accent: "from-pink-500/20 to-rose-500/20 border-pink-500/30 text-pink-400"
+  }
+];
+

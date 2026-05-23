@@ -8,8 +8,8 @@ import { HeroSection } from "./components/hero-section";
 import { AboutSection } from "./components/about-section";
 import { SkillsSection } from "./components/skills-section";
 import { ProjectsSection } from "./components/projects-section";
+import { WorkflowSection } from "./components/workflow-section";
 import {
-  WorkflowPlaceholder,
   ContactPlaceholder,
 } from "./components/placeholder-sections";
 
@@ -31,8 +31,10 @@ export default function App() {
         {/* Real Content Sections (Stage 3) */}
         <ProjectsSection />
 
+        {/* Real Content Sections (Stage 4) */}
+        <WorkflowSection />
+
         {/* Anchor Layout Placeholder Sections for next stages */}
-        <WorkflowPlaceholder />
         <ContactPlaceholder />
       </main>
 
