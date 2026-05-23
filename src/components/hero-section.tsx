@@ -128,13 +128,15 @@ export function HeroSection() {
                 GitHub
               </a>
 
-              <button
-                onClick={() => handleScrollToSection("workflow")}
+              <a
+                href="https://t.me/cxldforeverr"
+                target="_blank"
+                rel="noreferrer noopener"
                 className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-transparent text-zinc-400 hover:text-white font-sans text-sm font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40"
               >
-                <Sparkles className="w-3.5 h-3.5 mr-2 text-purple-400" />
-                {t.hero.workflowCta}
-              </button>
+                <Send className="w-3.5 h-3.5 mr-2 text-cyan-400" />
+                Telegram
+              </a>
             </motion.div>
           </div>
 

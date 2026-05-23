@@ -78,6 +78,11 @@ export interface TranslationDictionary {
     privateRepo: string;
     briefRepo: string;
     guideRepo: string;
+    btnDemo: string;
+    btnCode: string;
+    btnRepo: string;
+    additionalTitle: string;
+    additionalSubtitle: string;
     proj1Desc: string;
     proj1Highlights: string[];
     proj2Desc: string;
@@ -88,6 +93,8 @@ export interface TranslationDictionary {
     proj4Highlights: string[];
     proj5Desc: string;
     proj5Highlights: string[];
+    proj6Desc: string;
+    proj6Highlights: string[];
   };
   workflow: {
     label: string;
@@ -122,6 +129,7 @@ export interface TranslationDictionary {
     label: string;
     title: string;
     subtitle: string;
+    cardDescription: string;
     tgTitle: string;
     tgDesc: string;
     hhTitle: string;
@@ -158,8 +166,8 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       skills: "Навыки",
       projects: "Проекты",
       workflow: "Процесс",
-      available: "Доступен →",
-      availableMobile: "Доступен к предложениям →",
+      available: "Связаться",
+      availableMobile: "Связаться",
       ariaAbout: "Перейти к секции Обо мне",
       ariaSkills: "Перейти к секции Навыки",
       ariaProjects: "Перейти к секции Проекты",
@@ -220,49 +228,49 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       footerLabel: "02 . Навыки & Стек",
     },
     projects: {
-      label: "Избранные Проекты",
+      label: "Проекты",
       title: "Продукты и технические прототипы",
       subtitle: "Каждый проект — это законченный демонстрационный пример, решающий конкретную задачу пользователя.",
       liveDemo: "Live Demo",
       openRepo: "Открыть репозиторий",
-      privateRepo: "Private Repository",
+      privateRepo: "Приватный репозиторий",
       briefRepo: "AI Brief Builder Репозиторий",
       guideRepo: "AI MVP Guide Репозиторий",
-      proj1Desc: "CRM-прототип для управления лидами, заметками и аналитикой с акцентом на чистую архитектуру, реальные API-сценарии и аккуратный dashboard UX.",
+      btnDemo: "Демо",
+      btnCode: "Код",
+      btnRepo: "Репозиторий",
+      additionalTitle: "Дополнительные проекты",
+      additionalSubtitle: "Другие pet-проекты, библиотеки и мобильные/системные прототипы",
+      proj1Desc: "CRM-style продукт с leads, analytics, workspace UX и demo-first подачей.",
       proj1Highlights: [
-        "Repository pattern и разделение data layer",
-        "Supabase / JSON fallback persistence",
-        "JWT auth, Zod validation",
-        "Analytics routes и polished lead flow",
+        "dashboard, leads, analytics, settings",
+        "demo-first showcase flow",
+        "Kanban / pipeline view",
+        "CSV export",
+        "AI insights",
       ],
-      proj2Desc: "Сервис заявок в ремонтную службу с фокусом на корректную бизнес-логику, конкурентный доступ и предсказуемое поведение API.",
+      proj2Desc: "Продукт для генерации структурированных brief / ТЗ с AI-assisted flow.",
       proj2Highlights: [
-        "Корректная обработка конфликтов",
-        "Race-condition сценарии",
-        "API-first подход",
-        "Проверка через regression/concurrency тесты",
+        "AI-assisted generation",
+        "structured output",
+        "product-oriented UX",
       ],
-      proj3Desc: "Double-sync готовое Flutter-приложение для составления и сохранения маршрутов с картами, офлайн-кешем и геолокацией.",
+      proj3Desc: "Fullstack/backend-проект с workflow-логикой и role-based сценариями.",
       proj3Highlights: [
-        "Map/routing flow & Geolocation tracking",
-        "Location permissions UX & fallbacks",
-        "Local-first saved routes (Hive cache)",
-        "Supabase-ready persistence layer",
+        "request workflow",
+        "бизнес-логика",
+        "role-based scenarios",
       ],
-      proj4Desc: "AI meditation app prototype с фокусом на premium mobile UI, paywall-сценарии, профиль пользователя и генерацию персонального контента.",
+      proj4Desc: "AI-powered wellness / meditation app concept с акцентом на mobile-style UX и product presentation.",
       proj4Highlights: [
-        "Premium mobile UI & micro-transitions",
-        "Paywall and profile wizard flow",
-        "AI-generated content generation preview",
-        "Dark/light visual system layout options",
+        "AI-themed flow",
+        "dark/light UI",
+        "motion-driven presentation",
       ],
-      proj5Desc: "Инструмент для быстрого превращения идеи в структурированный технический MVP / бриф с помощью продуктового UI и ИИ.",
-      proj5Highlights: [
-        "Prompt-driven generation flow matching schema",
-        "Structured markdown product brief output",
-        "Fast demo-ready interface",
-        "Useful for MVP planning & requirements",
-      ],
+      proj5Desc: "Flutter-приложение для построения и сохранения маршрутов.",
+      proj5Highlights: [],
+      proj6Desc: "Прототип системы автоматизации документов с frontend-частью, NestJS gateway и worker-based processing flow.",
+      proj6Highlights: [],
     },
     workflow: {
       label: "AI-assisted разработка",
@@ -295,10 +303,11 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
     },
     contact: {
       label: "Контакты",
-      title: "Давайте сделаем совместный продукт",
+      title: "Готов обсудить задачи и формат работы",
       subtitle: "Ищу вакансии в продуктовых командах или интересные проекты. Готов обсудить junior+ / strong junior роли fullstack или frontend разработчика.",
+      cardDescription: "Ищу frontend / fullstack задачи, где важны аккуратный интерфейс, понятная логика, работа с данными и доведение продукта до рабочего состояния. Быстро вникаю в контекст, умею работать итеративно и использую AI-инструменты как ускоритель, сохраняя контроль над качеством результата.",
       tgTitle: "Telegram",
-      tgDesc: "Быстрая связь и обсуждение вакансий / проектов.",
+      tgDesc: "Быстрая связь по вакансиям, проектам и сотрудничеству.",
       hhTitle: "HH Resume",
       hhDesc: "Резюме, опыт и актуальный профиль для работодателей.",
       ghMainTitle: "GitHub / Main",
@@ -331,8 +340,8 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       skills: "Skills",
       projects: "Projects",
       workflow: "Workflow",
-      available: "Available →",
-      availableMobile: "Available for opportunities →",
+      available: "Contact",
+      availableMobile: "Contact",
       ariaAbout: "Go to About section",
       ariaSkills: "Go to Skills section",
       ariaProjects: "Go to Projects section",
@@ -393,7 +402,7 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       footerLabel: "02 . Skills & Stack",
     },
     projects: {
-      label: "Featured Projects",
+      label: "Projects",
       title: "Products and technical prototypes",
       subtitle: "Each project is a complete showcase resolving real-world end-user problems.",
       liveDemo: "Live Demo",
@@ -401,41 +410,41 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       privateRepo: "Private Repository",
       briefRepo: "AI Brief Builder Repository",
       guideRepo: "AI MVP Guide Repository",
-      proj1Desc: "CRM prototype for lead management, notes, and analytics with emphasis on clean architecture, true API endpoints, and clean dashboard UX.",
+      btnDemo: "Demo",
+      btnCode: "Code",
+      btnRepo: "Repository",
+      additionalTitle: "Additional Projects",
+      additionalSubtitle: "Other pet projects, libraries, and mobile/system prototypes",
+      proj1Desc: "A CRM-style product with leads, analytics, workspace UX and a demo-first presentation flow.",
       proj1Highlights: [
-        "Repository pattern and data layer segregation",
-        "Supabase / JSON fallback persistence",
-        "JWT auth, Zod validation",
-        "Analytics routes & polished lead flow",
+        "dashboard, leads, analytics, settings",
+        "demo-first showcase flow",
+        "Kanban / pipeline view",
+        "CSV export",
+        "AI insights",
       ],
-      proj2Desc: "Service desk request platform for repairs, focusing on correct business logic, concurrent accesses, and predictable API behavior.",
+      proj2Desc: "A product for generating structured briefs and technical specs with an AI-assisted flow.",
       proj2Highlights: [
-        "Graceful resolution of record conflicts",
-        "Conquering race-condition scenarios",
-        "API-first engineering approach",
-        "Tested by robust regression/concurrency suites",
+        "AI-assisted generation",
+        "structured output",
+        "product-oriented UX",
       ],
-      proj3Desc: "Double-sync fully realized Flutter application for making and caching personal routes with map, offline storage, and geolocation.",
+      proj3Desc: "A fullstack/backend project with workflow logic and role-based scenarios.",
       proj3Highlights: [
-        "Map/routing flow & Geolocation tracking",
-        "Location permissions UX & fallbacks",
-        "Local-first saved routes (Hive cache)",
-        "Supabase-ready persistence layer",
+        "request workflow",
+        "business logic",
+        "role-based scenarios",
       ],
-      proj4Desc: "AI meditation app prototype focusing on premium mobile UI, paywall-scenarios, user configuration wizards, and personalized content builds.",
+      proj4Desc: "An AI-powered wellness / meditation app concept focused on mobile-style UX and product presentation.",
       proj4Highlights: [
-        "Premium mobile UI & micro-transitions",
-        "Paywall and profile wizard flow",
-        "AI-generated content generation preview",
-        "Dark/light visual system layout options",
+        "AI-themed flow",
+        "dark/light UI",
+        "motion-driven presentation",
       ],
-      proj5Desc: "Product workspace tool designed to shape high-level concepts into technical MVP specs using structured user inputs and LLM pipelines.",
-      proj5Highlights: [
-        "Prompt-driven generation flow matching schema",
-        "Structured markdown product brief output",
-        "Fast demo-ready interface",
-        "Useful for MVP planning & requirements",
-      ],
+      proj5Desc: "A Flutter app for building and saving routes.",
+      proj5Highlights: [],
+      proj6Desc: "A prototype document automation system with a frontend layer, NestJS gateway and worker-based processing flow.",
+      proj6Highlights: [],
     },
     workflow: {
       label: "AI-assisted engineering",
@@ -468,10 +477,11 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
     },
     contact: {
       label: "Contact",
-      title: "Let's build something exceptional",
+      title: "Open to discussing roles and projects",
       subtitle: "Open to discussions with product groups and engineering teams. Available to discuss junior+ / strong junior roles in fullstack or frontend development.",
+      cardDescription: "I’m looking for frontend / fullstack work where clean interfaces, clear product logic, data flows and reliable delivery matter. I work iteratively, get into context quickly, and use AI tools as an accelerator while keeping engineering control over the final result.",
       tgTitle: "Telegram",
-      tgDesc: "Quick response channel to discuss openings or product challenges.",
+      tgDesc: "Fast contact for roles, projects and collaboration.",
       hhTitle: "HH Resume",
       hhDesc: "Resume, experience, and timeline records for validation.",
       ghMainTitle: "GitHub / Main",

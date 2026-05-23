@@ -130,93 +130,102 @@ export const CORE_TECH_STACK: TechStackItem[] = [
   { name: 'AI-driven agents', category: 'ai' }
 ];
 
-export const FEATURED_PROJECTS: Project[] = [
+export const MAIN_PROJECTS: Project[] = [
   {
     id: "clientflow",
     title: "ClientFlow",
-    type: "CRM / Lead Management Prototype",
+    type: "Fullstack / CRM",
     category: "Fullstack",
-    status: "Product prototype",
-    description: "CRM-прототип для управления лидами, заметками и аналитикой с акцентом на чистую архитектуру, реальные API-сценарии и аккуратный dashboard UX.",
+    status: "Portfolio MVP",
+    description: "CRM-style продукт с leads, analytics, workspace UX и demo-first подачей.",
     highlights: [
-      "Repository pattern и разделение data layer",
-      "Supabase / JSON fallback persistence",
-      "JWT auth, Zod validation",
-      "Analytics routes и polished lead flow"
+      "dashboard, leads, analytics, settings",
+      "demo-first showcase flow",
+      "Kanban / pipeline view",
+      "CSV export",
+      "AI insights"
     ],
-    techStack: ["Next.js", "React", "TypeScript", "Supabase", "JWT", "Zod", "Tailwind CSS"],
+    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     repoUrl: "https://github.com/flexxxikqwe/ClientFlow",
+    liveUrl: "https://client-flow-mu-seven.vercel.app/",
     featured: true
+  },
+  {
+    id: "ai-brief-builder-gemini",
+    title: "AI Brief Builder Gemini",
+    type: "AI / Product Tool",
+    category: "AI",
+    status: "Web demo",
+    description: "Продукт для генерации структурированных brief / ТЗ с AI-assisted flow.",
+    highlights: [
+      "AI-assisted generation",
+      "structured output",
+      "product-oriented UX"
+    ],
+    techStack: ["TypeScript", "React", "Vite", "Tailwind CSS", "Node.js", "Express"],
+    repoUrl: "https://github.com/flexxxikqwe/AI-Brief-Builder-Gemini",
+    liveUrl: "https://ai-brief-builder-gemini.vercel.app/",
+    featured: false
   },
   {
     id: "repair-service",
     title: "Repair Requests Service",
-    type: "Service Desk / Test Assignment",
+    type: "Backend / Fullstack",
     category: "Backend",
-    status: "Public Repository",
-    description: "Сервис заявок в ремонтную службу с фокусом на корректную бизнес-логику, конкурентный доступ и предсказуемое поведение API.",
+    status: "Service workflow",
+    description: "Fullstack/backend-проект с workflow-логикой и role-based сценариями.",
     highlights: [
-      "Корректная обработка конфликтов",
-      "Race-condition сценарии",
-      "API-first подход",
-      "Проверка через regression/concurrency тесты"
+      "request workflow",
+      "бизнес-логика",
+      "role-based scenarios"
     ],
-    techStack: ["TypeScript", "Node.js", "API", "Tests"],
+    techStack: ["Node.js", "Express", "SQLite", "Tailwind CSS", "Jest"],
     repoUrl: "https://github.com/flexxxikqwe/Repair-Requests-Service",
-    featured: true
-  },
-  {
-    id: "routeflow",
-    title: "RouteFlow",
-    type: "Mobile Maps App",
-    category: "Mobile",
-    status: "Flutter demo",
-    description: "Double-sync готовое Flutter-приложение для составления и сохранения маршрутов с картами, офлайн-кешем и геолокацией.",
-    highlights: [
-      "Map/routing flow & Geolocation tracking",
-      "Location permissions UX & fallbacks",
-      "Local-first saved routes (Hive cache)",
-      "Supabase-ready persistence layer"
-    ],
-    techStack: ["Flutter", "Dart", "GoRouter", "flutter_map", "Hive", "Supabase"],
-    repoUrl: "https://github.com/akumaqqe322/RouteFlow",
-    featured: true
+    liveUrl: "https://repair-requests-service-production.up.railway.app",
+    featured: false
   },
   {
     id: "zenpulse",
     title: "ZenPulse",
-    type: "AI Meditation App",
-    category: "Mobile",
-    status: "Product prototype",
-    description: "AI meditation app prototype с фокусом на premium mobile UI, paywall-сценарии, профиль пользователя и генерацию персонального контента.",
+    type: "AI / Wellness",
+    category: "AI",
+    status: "Product concept",
+    description: "AI-powered wellness / meditation app concept с акцентом на mobile-style UX и product presentation.",
     highlights: [
-      "Premium mobile UI & micro-transitions",
-      "Paywall and profile wizard flow",
-      "AI-generated content generation preview",
-      "Dark/light visual system layout options"
+      "AI-themed flow",
+      "dark/light UI",
+      "motion-driven presentation"
     ],
-    techStack: ["React Native", "Expo", "TypeScript", "AI workflow"],
+    techStack: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
     repoUrl: "https://github.com/flexxxikqwe/ZenPulse",
     liveUrl: "https://zen-pulse-theta.vercel.app",
     featured: false
+  }
+];
+
+export const ADDITIONAL_PROJECTS: Project[] = [
+  {
+    id: "routeflow",
+    title: "RouteFlow",
+    type: "Mobile",
+    category: "Mobile",
+    status: "Flutter app",
+    description: "Flutter-приложение для построения и сохранения маршрутов.",
+    highlights: [],
+    techStack: ["Flutter", "Dart", "Supabase", "flutter_map", "Hive", "RevenueCat", "Sentry"],
+    repoUrl: "https://github.com/akumaqqe322/RouteFlow",
+    featured: false
   },
   {
-    id: "ai-mvp-guide",
-    title: "AI Brief Builder",
-    type: "AI Product Tool",
-    category: "AI",
-    status: "Web demo",
-    description: "Инструмент для быстрого превращения идеи в структурированный технический MVP / бриф с помощью продуктового UI и ИИ.",
-    highlights: [
-      "Prompt-driven generation flow matching schema",
-      "Structured markdown product brief output",
-      "Fast demo-ready interface",
-      "Useful for MVP planning & requirements"
-    ],
-    techStack: ["React", "TypeScript", "AI workflow", "Vercel / Replit"],
-    repoUrl: "https://github.com/flexxxikqwe/AI-Brief-Builder-Gemini",
-    repoUrlAdditional: "https://github.com/flexxxikqwe/AI-MVP-Guide",
-    liveUrl: "https://ai-brief-builder-gemini.vercel.app",
+    id: "cassatix",
+    title: "Cassatix Document Constructor",
+    type: "Fullstack / Automation",
+    category: "Fullstack",
+    status: "System prototype",
+    description: "Прототип системы автоматизации документов с frontend-частью, NestJS gateway и worker-based processing flow.",
+    highlights: [],
+    techStack: ["React", "TypeScript", "Vite", "Tailwind CSS", "NestJS", "BullMQ", "PostgreSQL", "Redis", "S3-compatible storage"],
+    repoUrl: "https://github.com/akumaqqe322/Cassatix-Document-Constructor",
     featured: false
   }
 ];

@@ -1,29 +1,32 @@
 import { motion } from "motion/react";
-import { FolderGit2, CheckCircle2, Github, ExternalLink, Lock } from "lucide-react";
+import { FolderGit2, CheckCircle2, Github, ExternalLink } from "lucide-react";
 import { SectionContainer } from "./ui/section-container";
-import { FEATURED_PROJECTS, Project } from "../lib/site-data";
+import { MAIN_PROJECTS, ADDITIONAL_PROJECTS, Project } from "../lib/site-data";
 import { useLocale } from "../lib/i18n";
 
 interface ProjectCardProps {
   project: Project;
   isFirst?: boolean;
+  isAdditional?: boolean;
 }
 
-function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
+function ProjectCard({ project, isFirst = false, isAdditional = false }: ProjectCardProps) {
   const { t, locale } = useLocale();
 
   const getTranslatedProject = (id: string, fallbackDesc: string, fallbackHighlights: string[]) => {
     switch (id) {
       case "clientflow":
         return { description: t.projects.proj1Desc, highlights: t.projects.proj1Highlights };
-      case "repair-requests":
+      case "ai-brief-builder-gemini":
         return { description: t.projects.proj2Desc, highlights: t.projects.proj2Highlights };
-      case "routeflow":
+      case "repair-service":
         return { description: t.projects.proj3Desc, highlights: t.projects.proj3Highlights };
       case "zenpulse":
         return { description: t.projects.proj4Desc, highlights: t.projects.proj4Highlights };
-      case "ai-mvp-guide":
+      case "routeflow":
         return { description: t.projects.proj5Desc, highlights: t.projects.proj5Highlights };
+      case "cassatix":
+        return { description: t.projects.proj6Desc, highlights: t.projects.proj6Highlights };
       default:
         return { description: fallbackDesc, highlights: fallbackHighlights };
     }
@@ -31,24 +34,33 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
 
   const getTranslatedType = (type: string) => {
     if (locale === "en") return type;
-    if (type === "Web Service") return "Веб-сервис";
-    if (type === "SPA Prototype") return "Прототип SPA";
-    if (type === "Flutter App") return "Flutter-приложение";
+    if (type === "Fullstack / CRM") return "Fullstack / CRM";
+    if (type === "AI / Product Tool") return "AI / Продуктовый инструмент";
+    if (type === "Backend / Fullstack") return "Backend / Fullstack";
+    if (type === "AI / Wellness") return "AI / Wellness";
+    if (type === "Mobile") return "Мобильное приложение";
+    if (type === "Fullstack / Automation") return "Fullstack / Автоматизация";
     return type;
   };
 
   const getTranslatedCategory = (category: string) => {
     if (locale === "en") return category;
-    if (category === "MVP") return "MVP";
-    if (category === "Product") return "Продукт";
+    if (category === "Fullstack") return "Fullstack";
+    if (category === "Backend") return "Backend";
+    if (category === "Mobile") return "Mobile";
+    if (category === "AI") return "AI";
+    if (category === "Frontend") return "Frontend";
     return category;
   };
 
   const getTranslatedStatus = (status: string) => {
     if (locale === "en") return status;
-    if (status === "Completed") return "Завершен";
-    if (status === "Production Deploy") return "В продакшене";
-    if (status === "Demo Ready" || status.toLowerCase() === "demo-ready") return "Демо готово";
+    if (status === "Portfolio MVP") return "Портфолио MVP";
+    if (status === "Web demo") return "Веб-демо";
+    if (status === "Service workflow") return "Воркфлоу сервиса";
+    if (status === "Product concept") return "Концепт продукта";
+    if (status === "Flutter app") return "Flutter приложение";
+    if (status === "System prototype") return "Прототип системы";
     return status;
   };
 
@@ -98,19 +110,21 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
           {/* Side by side elements on Wide Card */}
           <div className={`mt-5 ${isFirst ? "lg:col-span-12 lg:mt-6 grid grid-cols-1 md:grid-cols-2 gap-6" : "space-y-5"}`}>
             {/* Bullet Highlights layout */}
-            <div className="space-y-2.5">
-              <h4 className="text-[11px] font-mono text-zinc-500 tracking-wider font-semibold uppercase">
-                {locale === "ru" ? "Ключевые фичи / Решения" : "Key Features / Solutions"}
-              </h4>
-              <ul className="space-y-2">
-                {localized.highlights.map((highlight) => (
-                  <li key={highlight} className="flex items-start gap-2.5 text-xs text-zinc-400 font-sans">
-                    <CheckCircle2 className="w-4 h-4 text-blue-500/70 mt-0.5 shrink-0" />
-                    <span>{highlight}</span>
-                   </li>
-                ))}
-              </ul>
-            </div>
+            {localized.highlights && localized.highlights.length > 0 && (
+              <div className="space-y-2.5">
+                <h4 className="text-[11px] font-mono text-zinc-500 tracking-wider font-semibold uppercase">
+                  {locale === "ru" ? "Ключевые фичи / Решения" : "Key Features / Solutions"}
+                </h4>
+                <ul className="space-y-2">
+                  {localized.highlights.map((highlight) => (
+                    <li key={highlight} className="flex items-start gap-2.5 text-xs text-zinc-400 font-sans">
+                      <CheckCircle2 className="w-4 h-4 text-blue-500/70 mt-0.5 shrink-0" />
+                      <span>{highlight}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Tech Stack Pills list */}
             <div className="space-y-3">
@@ -135,54 +149,43 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
       {/* Footer buttons row */}
       <div className="px-6 py-4 bg-zinc-950/45 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 select-none">
-          {project.liveUrl && (
+          {/* Main layout buttons */}
+          {!isAdditional && project.liveUrl && (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer noopener"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-md shadow-blue-500/10 hover:shadow-blue-500/20 active:scale-98 transition-all duration-200 cursor-pointer"
             >
-              <span>{t.projects.liveDemo}</span>
+              <span>{t.projects.btnDemo}</span>
               <ExternalLink className="w-3.5 h-3.5 text-white/90" />
             </a>
           )}
 
-          {project.repoUrlAdditional ? (
-            <div className="flex flex-wrap items-center gap-2">
+          {isAdditional ? (
+            project.repoUrl && (
               <a
                 href={project.repoUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-all duration-200"
               >
-                <Github className="w-3.5 h-3.5 text-blue-400" />
-                <span>{locale === "ru" ? "AI Brief Builder Репозиторий" : "AI Brief Builder Repo"}</span>
+                <Github className="w-3.5 h-3.5 text-zinc-400" />
+                <span>{t.projects.btnRepo}</span>
               </a>
+            )
+          ) : (
+            project.repoUrl && (
               <a
-                href={project.repoUrlAdditional}
+                href={project.repoUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-all duration-200"
               >
-                <Github className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{locale === "ru" ? "AI MVP Guide Репозиторий" : "AI MVP Guide Repo"}</span>
+                <Github className="w-3.5 h-3.5 text-zinc-400" />
+                <span>{project.liveUrl ? t.projects.btnCode : t.projects.btnRepo}</span>
               </a>
-            </div>
-          ) : project.repoUrl ? (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-400 hover:text-white transition-all duration-200"
-            >
-              <Github className="w-3.5 h-3.5 text-zinc-400" />
-              <span>{t.projects.openRepo}</span>
-            </a>
-          ) : (
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-500">
-              <Lock className="w-3 h-3 text-zinc-600" />
-              <span>Private Repository</span>
-            </span>
+            )
           )}
         </div>
       </div>
@@ -212,8 +215,8 @@ export function ProjectsSection() {
     },
   };
 
-  const firstProject = FEATURED_PROJECTS[0];
-  const remainingProjects = FEATURED_PROJECTS.slice(1);
+  const firstProject = MAIN_PROJECTS[0];
+  const remainingProjects = MAIN_PROJECTS.slice(1);
 
   return (
     <SectionContainer id="projects" className="border-t border-zinc-900/60 py-24 relative overflow-hidden">
@@ -221,7 +224,7 @@ export function ProjectsSection() {
       <div className="absolute left-1/2 top-1/4 -translate-x-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute right-10 bottom-10 w-96 h-96 bg-purple-500/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="space-y-16 relative z-10">
+      <div className="space-y-20 relative z-10">
         {/* Section Header */}
         <div className="text-left md:text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-blue-400">
@@ -253,40 +256,73 @@ export function ProjectsSection() {
         </div>
 
         {/* Projects Layout Container */}
-        <div className="space-y-8" id="projects-layout-container">
+        <div className="space-y-16" id="projects-layout-container">
           
-          {/* Featured/First Project (Spans 100% width) */}
-          {firstProject && (
+          {/* Main Projects Section */}
+          <div className="space-y-8">
+            {firstProject && (
+              <motion.div
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                className="w-full group"
+              >
+                <ProjectCard project={firstProject} isFirst={true} />
+              </motion.div>
+            )}
+
+            {/* Secondary Projects Grid (2 columns on desktop) */}
             <motion.div
-              variants={cardVariants}
+              variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="w-full group"
+              className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+              id="secondary-projects-grid"
             >
-              <ProjectCard project={firstProject} isFirst={true} />
+              {remainingProjects.map((project: Project) => (
+                <motion.div
+                  key={project.id}
+                  variants={cardVariants}
+                  className="w-full min-w-0 h-full group"
+                >
+                  <ProjectCard project={project} isFirst={false} />
+                </motion.div>
+              ))}
             </motion.div>
-          )}
+          </div>
 
-          {/* Secondary Projects Grid (2 columns on desktop) */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 lg:grid-cols-2 gap-8"
-            id="secondary-projects-grid"
-          >
-            {remainingProjects.map((project: Project) => (
-              <motion.div
-                key={project.id}
-                variants={cardVariants}
-                className="w-full min-w-0 h-full group"
-              >
-                <ProjectCard project={project} isFirst={false} />
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Additional Projects Block */}
+          <div className="pt-16 border-t border-zinc-900/60 max-w-7xl mx-auto space-y-10" id="additional-projects-wrapper">
+            <div className="text-left md:text-center space-y-2">
+              <h3 className="text-xl sm:text-2xl font-sans font-bold text-white tracking-tight">
+                {t.projects.additionalTitle}
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+                {t.projects.additionalSubtitle}
+              </p>
+            </div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+              id="additional-projects-grid"
+            >
+              {ADDITIONAL_PROJECTS.map((project: Project) => (
+                <motion.div
+                  key={project.id}
+                  variants={cardVariants}
+                  className="w-full min-w-0 h-full group"
+                >
+                  <ProjectCard project={project} isFirst={false} isAdditional={true} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
         </div>
       </div>

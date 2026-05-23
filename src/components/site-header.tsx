@@ -225,13 +225,9 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             <a
               href="#contact"
               onClick={(e) => handleScrollToSection(e, "#contact")}
-              className="inline-flex items-center justify-center h-8 px-3.5 text-[11px] font-mono font-semibold tracking-wide text-zinc-300 bg-zinc-950/80 border border-emerald-500/15 hover:border-emerald-500/35 rounded-lg hover:bg-zinc-900 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500/40 shadow-sm shadow-emerald-500/2 hover:-translate-y-0.5 transition-all duration-200 select-none cursor-pointer group"
+              className="inline-flex items-center justify-center h-8 px-3.5 text-[11px] font-mono font-semibold tracking-wide text-zinc-100 bg-cyan-400/[0.06] border border-cyan-300/[0.12] hover:border-cyan-300/[0.18] rounded-lg hover:bg-cyan-400/[0.08] focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 transition-all duration-200 select-none cursor-pointer hover:-translate-y-0.5 active:translate-y-0"
               id="header-cta"
             >
-              <span className="relative flex h-1.5 w-1.5 mr-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-              </span>
               <span>{t.nav.available}</span>
             </a>
           </div>
@@ -331,12 +327,8 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                 <a
                   href="#contact"
                   onClick={(e) => handleScrollToSection(e, "#contact")}
-                  className="flex items-center justify-center w-full px-4 py-2.5 text-xs font-mono text-center font-semibold text-white bg-blue-600/15 hover:bg-blue-600/25 border border-blue-500/25 hover:border-blue-500/45 rounded-lg focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40 transition-all duration-200 cursor-pointer"
+                  className="flex items-center justify-center w-full px-4 py-2.5 text-xs font-mono text-center font-semibold text-zinc-100 bg-cyan-400/[0.06] hover:bg-cyan-400/[0.08] border border-cyan-300/[0.12] hover:border-cyan-300/[0.18] rounded-lg focus:outline-none focus-visible:ring-1 focus-visible:ring-cyan-500/40 transition-all duration-200 cursor-pointer"
                 >
-                  <span className="relative flex h-1.5 w-1.5 mr-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 font-bold"></span>
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-                  </span>
                   <span>{t.nav.availableMobile}</span>
                 </a>
               </div>

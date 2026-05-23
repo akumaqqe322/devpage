@@ -113,10 +113,8 @@ export function ContactSection() {
                   <h3 className="text-xl font-sans font-bold text-white">
                     {t.contact.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans">
-                    {locale === "ru"
-                      ? "Если вам нужен специалист, который ценит качество исходного кода, думает о конечном продукте, умеет общаться без лишнего пафоса и берет лучшее от современных AI-инструментов — я на связи."
-                      : "If you need an engineer who values source code quality, keeps the product vision in mind, communicates transparently, and gets the best out of modern AI tools — let's connect."}
+                  <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-sans mt-2.5">
+                    {t.contact.cardDescription}
                   </p>
                 </div>
               </div>
