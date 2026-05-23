@@ -198,6 +198,7 @@ export const FEATURED_PROJECTS: Project[] = [
     ],
     techStack: ["React Native", "Expo", "TypeScript", "AI workflow"],
     repoUrl: "https://github.com/flexxxikqwe/ZenPulse",
+    liveUrl: "https://zen-pulse-theta.vercel.app",
     featured: false
   },
   {
@@ -216,6 +217,7 @@ export const FEATURED_PROJECTS: Project[] = [
     techStack: ["React", "TypeScript", "AI workflow", "Vercel / Replit"],
     repoUrl: "https://github.com/flexxxikqwe/AI-Brief-Builder-Gemini",
     repoUrlAdditional: "https://github.com/flexxxikqwe/AI-MVP-Guide",
+    liveUrl: "https://ai-brief-builder-gemini.vercel.app",
     featured: false
   }
 ];

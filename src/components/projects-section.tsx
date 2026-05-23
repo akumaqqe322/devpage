@@ -89,7 +89,19 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
 
       {/* Footer buttons row */}
       <div className="px-6 py-4 bg-zinc-950/45 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-2 select-none">
+        <div className="flex flex-wrap items-center gap-2.5 sm:gap-3 select-none">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs font-semibold shadow-md shadow-blue-500/10 hover:shadow-blue-500/20 active:scale-98 transition-all duration-200 cursor-pointer"
+            >
+              <span>Live Demo</span>
+              <ExternalLink className="w-3.5 h-3.5 text-white/90" />
+            </a>
+          )}
+
           {project.repoUrlAdditional ? (
             <div className="flex flex-wrap items-center gap-2">
               <a
@@ -99,7 +111,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-blue-400" />
-                <span>AI Brief Builder</span>
+                <span>AI Brief Builder Repo</span>
               </a>
               <a
                 href={project.repoUrlAdditional}
@@ -108,7 +120,7 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
               >
                 <Github className="w-3.5 h-3.5 text-cyan-400" />
-                <span>AI MVP Guide</span>
+                <span>AI MVP Guide Repo</span>
               </a>
             </div>
           ) : project.repoUrl ? (
@@ -118,30 +130,16 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
               rel="noreferrer noopener"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-350 hover:text-white transition-all duration-200"
             >
-              <Github className="w-3.5 h-3.5 text-blue-400" />
+              <Github className="w-3.5 h-3.5 text-zinc-400" />
               <span>Открыть репозиторий</span>
             </a>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-600">
-              <Lock className="w-3 h-3 text-zinc-700" />
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-650">
+              <Lock className="w-3 h-3 text-zinc-750" />
               <span>Private Repository</span>
             </span>
           )}
         </div>
-
-        {project.liveUrl && (
-          <div className="flex items-center gap-3">
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs transition-colors"
-            >
-              <span>Live Demo</span>
-              <ExternalLink className="w-3 h-3" />
-            </a>
-          </div>
-        )}
       </div>
     </div>
   );
