@@ -9,18 +9,20 @@ export interface TechStackItem {
   iconName?: string;
 }
 
-export interface ProjectItem {
+export type ProjectCategory = 'Fullstack' | 'Frontend' | 'Mobile' | 'AI' | 'Backend';
+
+export interface Project {
   id: string;
   title: string;
+  type: string;
+  status: string;
   description: string;
-  longDescription?: string;
-  tags: string[];
-  links: {
-    github?: string;
-    live?: string;
-  };
-  featured: boolean;
-  metrics?: string[];
+  highlights: string[];
+  techStack: string[];
+  category: ProjectCategory;
+  repoUrl?: string;
+  liveUrl?: string;
+  featured?: boolean;
 }
 
 export interface AboutHighlight {
@@ -128,48 +130,85 @@ export const CORE_TECH_STACK: TechStackItem[] = [
   { name: 'AI-driven agents', category: 'ai' }
 ];
 
-export const FEATURED_PROJECTS: ProjectItem[] = [
+export const FEATURED_PROJECTS: Project[] = [
   {
-    id: 'clientflow',
-    title: 'ClientFlow',
-    description: 'CRM & lead management prototype with AI-powered insights.',
-    tags: ['Next.js', 'Supabase', 'JWT', 'Zod', 'AI features'],
-    links: { github: '#' },
-    featured: true,
-    metrics: ['AI-driven lead scoring', 'Zod schema validation', 'Real-time database sync']
-  },
-  {
-    id: 'repair-service',
-    title: 'Repair Requests',
-    description: 'An advanced repair queue manager that handles critical race-conditions.',
-    tags: ['React', 'Express', 'JWT', 'Optimistic UI', 'Race-condition guard'],
-    links: { github: '#' },
-    featured: true,
-    metrics: ['Zero-flicker state synchronization', 'Deterministic conflict resolution']
-  },
-  {
-    id: 'routeflow',
-    title: 'RouteFlow',
-    description: 'Mobile routing and navigation client powered by offline maps and caching.',
-    tags: ['Flutter', 'Supabase', 'Mapbox', 'SQLite Cache'],
-    links: { github: '#' },
-    featured: true,
-    metrics: ['Offline-first local replica', 'Geofencing triggers']
-  },
-  {
-    id: 'zenpulse',
-    title: 'ZenPulse',
-    description: 'AI meditation platform built with modular paywalls and audio generations.',
-    tags: ['Next.js', 'AI Generation', 'Dynamic Paywall', 'User Flow'],
-    links: { github: '#' },
+    id: "clientflow",
+    title: "ClientFlow",
+    type: "CRM / Lead Management Prototype",
+    category: "Fullstack",
+    status: "Portfolio MVP",
+    description: "CRM-прототип для управления лидами, заметками и аналитикой с акцентом на чистую архитектуру, реальные API-сценарии и аккуратный dashboard UX.",
+    highlights: [
+      "Repository pattern и разделение data layer",
+      "Supabase / JSON fallback persistence",
+      "JWT auth, Zod validation",
+      "Analytics routes и polished lead flow"
+    ],
+    techStack: ["Next.js", "React", "TypeScript", "Supabase", "JWT", "Zod", "Tailwind CSS"],
     featured: true
   },
   {
-    id: 'ai-mvp-guide',
-    title: 'AI Brief Builder',
-    description: 'An AI productivity engine generating technical MVP specifications.',
-    tags: ['React', 'Vite', 'Gemini SDK', 'Tailwind', 'Prompt Engineering'],
-    links: { github: '#' },
+    id: "repair-service",
+    title: "Repair Requests Service",
+    type: "Service Desk / Test Assignment",
+    category: "Backend",
+    status: "Race-condition focused",
+    description: "Сервис заявок в ремонтную службу с фокусом на корректную бизнес-логику, конкурентный доступ и предсказуемое поведение API.",
+    highlights: [
+      "Корректная обработка конфликтов",
+      "Race-condition сценарии",
+      "API-first подход",
+      "Проверка через regression/concurrency тесты"
+    ],
+    techStack: ["TypeScript", "Node.js", "API", "Tests"],
     featured: true
+  },
+  {
+    id: "routeflow",
+    title: "RouteFlow",
+    type: "Mobile Maps App",
+    category: "Mobile",
+    status: "Flutter demo",
+    description: "Double-sync готовое Flutter-приложение для составления и сохранения маршрутов с картами, офлайн-кешем и геолокацией.",
+    highlights: [
+      "Map/routing flow & Geolocation tracking",
+      "Location permissions UX & fallbacks",
+      "Local-first saved routes (Hive cache)",
+      "Supabase-ready persistence layer"
+    ],
+    techStack: ["Flutter", "Dart", "GoRouter", "flutter_map", "Hive", "Supabase"],
+    featured: true
+  },
+  {
+    id: "zenpulse",
+    title: "ZenPulse",
+    type: "AI Meditation App",
+    category: "Mobile",
+    status: "Product prototype",
+    description: "AI meditation app prototype с фокусом на premium mobile UI, paywall-сценарии, профиль пользователя и генерацию персонального контента.",
+    highlights: [
+      "Premium mobile UI & micro-transitions",
+      "Paywall and profile wizard flow",
+      "AI-generated content generation preview",
+      "Dark/light visual system layout options"
+    ],
+    techStack: ["React Native", "Expo", "TypeScript", "AI workflow"],
+    featured: false
+  },
+  {
+    id: "ai-mvp-guide",
+    title: "AI Brief Builder",
+    type: "AI Product Tool",
+    category: "AI",
+    status: "Web demo",
+    description: "Инструмент для быстрого превращения идеи в структурированный технический MVP / бриф с помощью продуктового UI и ИИ.",
+    highlights: [
+      "Prompt-driven generation flow matching schema",
+      "Structured markdown product brief output",
+      "Fast demo-ready interface",
+      "Useful for MVP planning & requirements"
+    ],
+    techStack: ["React", "TypeScript", "AI workflow", "Vercel / Replit"],
+    featured: false
   }
 ];
