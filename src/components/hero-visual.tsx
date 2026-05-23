@@ -139,10 +139,10 @@ export function HeroVisual() {
                 <span className="text-orange-300">orchestrators</span>:
               </div>
               <div className="pl-5">
-                - <span className="text-zinc-300">Gemini-2.5-Flash</span>
+                - <span className="text-zinc-300">Gemini models</span>
               </div>
               <div className="pl-5">
-                - <span className="text-zinc-300">Claude-3.5-Sonnet</span>
+                - <span className="text-zinc-300">Claude models</span>
               </div>
               <div>
                 <span className="text-orange-300">workflow_stages</span>:
