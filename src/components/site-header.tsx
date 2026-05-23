@@ -41,11 +41,10 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
 
   const getTranslatedLabel = (label: string) => {
     switch (label.toLowerCase()) {
-      case "about": return t.header.navAbout;
-      case "skills": return t.header.navSkills;
-      case "projects": return t.header.navProjects;
-      case "workflow": return t.header.navWorkflow;
-      case "contact": return t.header.navContact;
+      case "about": return t.nav.about;
+      case "skills": return t.nav.skills;
+      case "projects": return t.nav.projects;
+      case "workflow": return t.nav.workflow;
       default: return label;
     }
   };
@@ -79,17 +78,25 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8" id="desktop-nav">
-            {NAV_ITEMS.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => handleScrollToSection(e, item.href)}
-                className="text-sm font-medium text-zinc-400 hover:text-white hover:translate-y-[-0.5px] transition-all duration-200 cursor-pointer"
-              >
-                {getTranslatedLabel(item.label)}
-              </a>
-            ))}
+          <nav className="hidden md:flex items-center gap-1 bg-zinc-950/50 backdrop-blur-md border border-white/[0.05] p-1 rounded-full" id="desktop-nav">
+            {NAV_ITEMS.map((item, index) => {
+              const num = `0${index + 1}`;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => handleScrollToSection(e, item.href)}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white hover:bg-white/[0.04] focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40 transition-all duration-200 cursor-pointer group"
+                >
+                  <span className="font-mono text-[10px] text-zinc-500 group-hover:text-blue-400 transition-colors">
+                    {num}
+                  </span>
+                  <span className="font-sans">
+                    {getTranslatedLabel(item.label)}
+                  </span>
+                </a>
+              );
+            })}
           </nav>
 
           {/* CTA Header Actions */}
@@ -138,11 +145,14 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             <a
               href="#contact"
               onClick={(e) => handleScrollToSection(e, "#contact")}
-              className="inline-flex items-center justify-center px-4 py-2 text-xs font-mono font-medium tracking-wide text-white bg-zinc-950 border border-zinc-800 hover:border-zinc-700 rounded-lg hover:bg-zinc-900 transition-all duration-200 select-none group cursor-pointer"
+              className="inline-flex items-center justify-center px-3.5 py-2 text-xs font-mono font-semibold tracking-wide text-zinc-300 bg-zinc-950/80 border border-emerald-500/15 hover:border-emerald-500/35 rounded-lg hover:bg-zinc-900 focus:outline-none focus-visible:ring-1 focus-visible:ring-emerald-500/40 shadow-sm shadow-emerald-500/2 hover:-translate-y-0.5 transition-all duration-200 select-none cursor-pointer group"
               id="header-cta"
             >
-              {t.header.contact}
-              <ArrowUpRight className="w-3.5 h-3.5 ml-1 text-zinc-500 group-hover:text-blue-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+              <span className="relative flex h-1.5 w-1.5 mr-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              </span>
+              <span>{t.nav.available}</span>
             </a>
           </div>
 
@@ -175,16 +185,24 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
             id="mobile-menu"
           >
             <div className="px-4 pt-3 pb-6 space-y-1.5 sm:px-6">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleScrollToSection(e, item.href)}
-                  className="block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 border-l border-transparent hover:border-blue-500 transition-all duration-200 cursor-pointer"
-                >
-                  {getTranslatedLabel(item.label)}
-                </a>
-              ))}
+              {NAV_ITEMS.map((item, index) => {
+                const num = `0${index + 1}`;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => handleScrollToSection(e, item.href)}
+                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-400 hover:text-white hover:bg-zinc-900 border-l border-transparent hover:border-blue-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/45 transition-all duration-200 cursor-pointer"
+                  >
+                    <span className="font-mono text-xs text-zinc-650">
+                      {num}
+                    </span>
+                    <span>
+                      {getTranslatedLabel(item.label)}
+                    </span>
+                  </a>
+                );
+              })}
               
               {/* Mobile Language Switcher block */}
               <div className="flex items-center justify-between px-3 py-2.5 border-b border-zinc-900/60 pb-3 mb-2">
@@ -231,9 +249,13 @@ export function SiteHeader({ onOpenPalette }: { onOpenPalette: () => void }) {
                 <a
                   href="#contact"
                   onClick={(e) => handleScrollToSection(e, "#contact")}
-                  className="flex items-center justify-center w-full px-4 py-3 text-xs font-mono text-center font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-all cursor-pointer"
+                  className="flex items-center justify-center w-full px-4 py-3 text-xs font-mono text-center font-semibold text-white bg-blue-600/15 hover:bg-blue-600/25 border border-blue-500/25 hover:border-blue-500/45 rounded-lg focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40 transition-all duration-200 cursor-pointer"
                 >
-                  {t.header.contactMe}
+                  <span className="relative flex h-1.5 w-1.5 mr-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 font-bold"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                  </span>
+                  <span>{t.nav.availableMobile}</span>
                 </a>
               </div>
             </div>

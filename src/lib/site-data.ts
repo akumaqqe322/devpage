@@ -44,8 +44,7 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'About', href: '#about' },
   { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Workflow', href: '#workflow' },
-  { label: 'Contact', href: '#contact' }
+  { label: 'Workflow', href: '#workflow' }
 ];
 
 export const STATUS_PILLS = [

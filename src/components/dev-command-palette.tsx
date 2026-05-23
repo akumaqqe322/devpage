@@ -148,7 +148,8 @@ export function DevCommandPalette({ isOpen, onClose }: DevCommandPaletteProps) {
   };
 
   // Filter lists based on search
-  const filteredNavItems = NAV_ITEMS.filter(item => 
+  const paletteNavItems = [...NAV_ITEMS, { label: 'Contact', href: '#contact' }];
+  const filteredNavItems = paletteNavItems.filter(item => 
     item.label.toLowerCase().includes(searchQuery.toLowerCase()) ||
     getTranslatedNavLabel(item.label).toLowerCase().includes(searchQuery.toLowerCase())
   );

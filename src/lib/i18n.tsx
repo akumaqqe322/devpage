@@ -3,6 +3,14 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 export type Locale = "ru" | "en";
 
 export interface TranslationDictionary {
+  nav: {
+    about: string;
+    skills: string;
+    projects: string;
+    workflow: string;
+    available: string;
+    availableMobile: string;
+  };
   header: {
     navAbout: string;
     navSkills: string;
@@ -23,6 +31,7 @@ export interface TranslationDictionary {
     statusRole: string;
     statusWorkflow: string;
     statusDemos: string;
+    workflowCta: string;
   };
   about: {
     label: string;
@@ -140,6 +149,14 @@ export interface TranslationDictionary {
 
 export const DICTIONARY: Record<Locale, TranslationDictionary> = {
   ru: {
+    nav: {
+      about: "Обо мне",
+      skills: "Навыки",
+      projects: "Проекты",
+      workflow: "Процесс",
+      available: "Доступен →",
+      availableMobile: "Доступен к предложениям →",
+    },
     header: {
       navAbout: "Обо мне",
       navSkills: "Навыки",
@@ -160,6 +177,7 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       statusRole: "Доступен для предложений (junior+ / strong junior)",
       statusWorkflow: "AI-assisted workflow",
       statusDemos: "Продуктовые демо-кейсы",
+      workflowCta: "Процесс",
     },
     about: {
       label: "Привет! Я Кирилл",
@@ -300,6 +318,14 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
     },
   },
   en: {
+    nav: {
+      about: "About",
+      skills: "Skills",
+      projects: "Projects",
+      workflow: "Workflow",
+      available: "Available →",
+      availableMobile: "Available for opportunities →",
+    },
     header: {
       navAbout: "About",
       navSkills: "Skills",
@@ -320,6 +346,7 @@ export const DICTIONARY: Record<Locale, TranslationDictionary> = {
       statusRole: "Available for roles (junior+ / strong junior)",
       statusWorkflow: "AI-assisted workflow",
       statusDemos: "Product-focused demo cases",
+      workflowCta: "Workflow",
     },
     about: {
       label: "Hi! I am Kirill",

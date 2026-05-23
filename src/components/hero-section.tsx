@@ -129,11 +129,11 @@ export function HeroSection() {
               </a>
 
               <button
-                onClick={() => handleScrollToSection("contact")}
-                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-transparent text-zinc-400 hover:text-white font-sans text-sm font-medium transition-all cursor-pointer"
+                onClick={() => handleScrollToSection("workflow")}
+                className="inline-flex items-center justify-center px-5 py-3 rounded-lg border border-zinc-800 hover:border-zinc-700 bg-transparent text-zinc-400 hover:text-white font-sans text-sm font-medium transition-all cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-blue-500/40"
               >
-                <Send className="w-3.5 h-3.5 mr-2" />
-                {t.hero.ctaContact}
+                <Sparkles className="w-3.5 h-3.5 mr-2 text-purple-400" />
+                {t.hero.workflowCta}
               </button>
             </motion.div>
           </div>
