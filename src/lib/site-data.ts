@@ -21,6 +21,7 @@ export interface Project {
   techStack: string[];
   category: ProjectCategory;
   repoUrl?: string;
+  repoUrlAdditional?: string;
   liveUrl?: string;
   featured?: boolean;
 }
@@ -136,7 +137,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: "ClientFlow",
     type: "CRM / Lead Management Prototype",
     category: "Fullstack",
-    status: "Portfolio MVP",
+    status: "Product prototype",
     description: "CRM-прототип для управления лидами, заметками и аналитикой с акцентом на чистую архитектуру, реальные API-сценарии и аккуратный dashboard UX.",
     highlights: [
       "Repository pattern и разделение data layer",
@@ -145,6 +146,7 @@ export const FEATURED_PROJECTS: Project[] = [
       "Analytics routes и polished lead flow"
     ],
     techStack: ["Next.js", "React", "TypeScript", "Supabase", "JWT", "Zod", "Tailwind CSS"],
+    repoUrl: "https://github.com/flexxxikqwe/ClientFlow",
     featured: true
   },
   {
@@ -152,7 +154,7 @@ export const FEATURED_PROJECTS: Project[] = [
     title: "Repair Requests Service",
     type: "Service Desk / Test Assignment",
     category: "Backend",
-    status: "Race-condition focused",
+    status: "Public Repository",
     description: "Сервис заявок в ремонтную службу с фокусом на корректную бизнес-логику, конкурентный доступ и предсказуемое поведение API.",
     highlights: [
       "Корректная обработка конфликтов",
@@ -161,6 +163,7 @@ export const FEATURED_PROJECTS: Project[] = [
       "Проверка через regression/concurrency тесты"
     ],
     techStack: ["TypeScript", "Node.js", "API", "Tests"],
+    repoUrl: "https://github.com/flexxxikqwe/Repair-Requests-Service",
     featured: true
   },
   {
@@ -177,6 +180,7 @@ export const FEATURED_PROJECTS: Project[] = [
       "Supabase-ready persistence layer"
     ],
     techStack: ["Flutter", "Dart", "GoRouter", "flutter_map", "Hive", "Supabase"],
+    repoUrl: "https://github.com/akumaqqe322/RouteFlow",
     featured: true
   },
   {
@@ -193,6 +197,7 @@ export const FEATURED_PROJECTS: Project[] = [
       "Dark/light visual system layout options"
     ],
     techStack: ["React Native", "Expo", "TypeScript", "AI workflow"],
+    repoUrl: "https://github.com/flexxxikqwe/ZenPulse",
     featured: false
   },
   {
@@ -209,6 +214,8 @@ export const FEATURED_PROJECTS: Project[] = [
       "Useful for MVP planning & requirements"
     ],
     techStack: ["React", "TypeScript", "AI workflow", "Vercel / Replit"],
+    repoUrl: "https://github.com/flexxxikqwe/AI-Brief-Builder-Gemini",
+    repoUrlAdditional: "https://github.com/flexxxikqwe/AI-MVP-Guide",
     featured: false
   }
 ];

@@ -88,43 +88,60 @@ function ProjectCard({ project, isFirst = false }: ProjectCardProps) {
       </div>
 
       {/* Footer buttons row */}
-      <div className="px-6 py-4 bg-zinc-950/40 border-t border-zinc-900 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-2 select-none">
-          {project.repoUrl ? (
+      <div className="px-6 py-4 bg-zinc-950/45 border-t border-zinc-900 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center gap-2 select-none">
+          {project.repoUrlAdditional ? (
+            <div className="flex flex-wrap items-center gap-2">
+              <a
+                href={project.repoUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+              >
+                <Github className="w-3.5 h-3.5 text-blue-400" />
+                <span>AI Brief Builder</span>
+              </a>
+              <a
+                href={project.repoUrlAdditional}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-300 hover:text-white transition-all duration-200"
+              >
+                <Github className="w-3.5 h-3.5 text-cyan-400" />
+                <span>AI MVP Guide</span>
+              </a>
+            </div>
+          ) : project.repoUrl ? (
             <a
               href={project.repoUrl}
               target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-zinc-400 hover:text-white transition-colors"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-xs font-mono text-zinc-350 hover:text-white transition-all duration-200"
             >
-              <Github className="w-3.5 h-3.5" />
-              <span>Code repository</span>
+              <Github className="w-3.5 h-3.5 text-blue-400" />
+              <span>Открыть репозиторий</span>
             </a>
           ) : (
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-650">
+            <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-600">
               <Lock className="w-3 h-3 text-zinc-700" />
               <span>Private Repository</span>
             </span>
           )}
         </div>
 
-        <div className="flex items-center gap-3">
-          {project.liveUrl ? (
+        {project.liveUrl && (
+          <div className="flex items-center gap-3">
             <a
               href={project.liveUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noreferrer noopener"
               className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-mono text-xs transition-colors"
             >
               <span>Live Demo</span>
               <ExternalLink className="w-3 h-3" />
             </a>
-          ) : (
-            <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded bg-zinc-900/60 border border-zinc-800 text-[10px] font-mono text-zinc-500">
-              Case details soon
-            </span>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
